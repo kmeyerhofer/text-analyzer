@@ -2,6 +2,20 @@ body {
   background-color: #9df;
 }
 
+footer {
+  text-align: center;
+  padding: 10px;
+}
+
+.inline {
+  diplay: inline;
+}
+.main {
+  border: 6px solid white;
+  padding: 10px;
+}
+
+
 .message {
   padding: 15px;
   background-color: #ca0000;
@@ -11,22 +25,26 @@ body {
 }
 
 .usertext {
-  background-color: #00bfff;
-  font-style: italic;
+  background-color: #0bf;
+  border-radius: 4px;
+  font-size: 150%;
 }
 
 .result {
   padding: 5px 2px;
   font-weight: bold;
+  font-size: 150%;
   color: #fff;
 }
 
 .negative {
   background-color: red;
+  border-radius: 6px;
   padding: 5px;
 }
 
 .positive {
   background-color: green;
+  border-radius: 6px;
   padding: 5px;
 }

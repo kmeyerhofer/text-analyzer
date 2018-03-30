@@ -1,21 +1,25 @@
 <div class="main">
-    <h1>Naive Bayes Text Analyzer</h1>
+  <h1>Naive Bayes Text Analyzer</h1>
   <p>
     Your text input is processed against a lexicon containing positive and
-    negative opinion words and 'Rotten Tomatoes' movie reviews,
-    the Text Analyzer will classify your input text as either
+    negative opinion words and <i>Rotten Tomatoes</i> movie reviews.
+  </p>
+  <p>
+    The Text Analyzer will classify your input text as either
     positive or negative.
   </p>
 
-  <h3>Enter text to analyze</h3>
-  <form method="post" action="/result">
+  <form class="inline" method="post" action="/result">
+    <label for="text_input"><h3>Enter text to analyze:</h3></label>
     <div>
-      <textarea name="text_to_analyze" rows='11' cols='75'><%= @previous_input %></textarea>
+      <textarea name="text_to_analyze" name="text_input"
+      rows="11" cols="75"><%= @previous_input %></textarea>
     </div>
-    <div>
       <input type="submit" value="Analyze">
-    </div>
-  </form>
+    </form>
+    <form class="inline" action="/random" method="post">
+      <input type="submit" value="Try Random Phrase">
+    </form>
 </div>
 
 <br><br>
@@ -38,3 +42,8 @@ Citations:
     with respect to rating scales.", Proceedings of the ACL, 2005.
   </li>
 </ul>
+
+<footer>
+  By Kurt Meyerhofer for
+  <a href="https://launchschool.com">Launch School</a>
+</footer>
