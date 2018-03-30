@@ -4,10 +4,10 @@ class CreateLexicon
   attr_reader :words
   def initialize
     @words = NBayes::Base.new
-    create
+    create!
   end
 
-  def create
+  def create!
     corpus = Dir.entries('./data').select { |file| file.match?(/(pos|neg)/) }
     corpus.each do |file|
       File.open("./data/#{file}").each do |line|

@@ -18,6 +18,7 @@ helpers do
 end
 
 get '/' do
+  @previous_input = session.delete(:input) unless session[:input].nil?
   erb :home
 end
 
@@ -25,10 +26,12 @@ post '/result' do
   @cleaned_up_text = clean_text(params[:text_to_analyze].to_s.strip)
   if @cleaned_up_text.size == 0
     session[:message] = "Please input text."
+    session[:input] = params[:text_to_analyze]
     status 422
     redirect '/'
   elsif @cleaned_up_text.size > 750
     session[:message] = "Please input less than 750 characters."
+    session[:input] = @cleaned_up_text
     status 422
     redirect '/'
   else
