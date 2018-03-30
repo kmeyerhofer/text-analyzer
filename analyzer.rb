@@ -17,6 +17,20 @@ helpers do
   end
 end
 
+def analyze(text)
+  Lexicon.new.analyze(text)
+end
+
+def random_result
+  line_array = []
+  File.open('data/random-queries.txt').each { |line| line_array << line }
+  line_array.sample
+end
+
+def css(result)
+  result == 'positive' ? 'positive' : 'negative'
+end
+
 get '/' do
   @previous_input = session.delete(:input) unless session[:input].nil?
   erb :home
@@ -27,16 +41,21 @@ post '/result' do
   if @cleaned_up_text.size == 0
     session[:message] = "Please input text."
     session[:input] = params[:text_to_analyze]
-    status 422
     redirect '/'
   elsif @cleaned_up_text.size > 750
     session[:message] = "Please input less than 750 characters."
     session[:input] = @cleaned_up_text
-    status 422
     redirect '/'
   else
-    @result = Lexicon.new.analyze(@cleaned_up_text)
-    @cssresult = @result == 'positive' ? 'positive' : 'negative'
+    @result = analyze(@cleaned_up_text)
+    @cssresult = css(@result)
     erb :result
   end
+end
+
+post '/random' do
+  @cleaned_up_text = random_result
+  @result = analyze(@cleaned_up_text)
+  @cssresult = css(@result)
+  erb :result
 end

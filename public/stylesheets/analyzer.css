@@ -7,9 +7,10 @@ footer {
   padding: 10px;
 }
 
-.inline {
+a {
   diplay: inline;
 }
+
 .main {
   border: 6px solid white;
   padding: 10px;
