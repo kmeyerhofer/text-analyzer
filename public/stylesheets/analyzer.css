@@ -1,0 +1,33 @@
+body {
+  background-color: #9df;
+}
+
+.message {
+  padding: 15px;
+  background-color: #ca0000;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.usertext {
+  padding: 5px;
+  background-color: #00bfff;
+  font-style: italic;
+}
+
+.result {
+  padding: 5px 2px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.negative {
+  background-color: red;
+  padding: 5px;
+}
+
+.positive {
+  background-color: green;
+  padding: 5px;
+}

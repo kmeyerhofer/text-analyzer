@@ -1,2 +1,13 @@
-Your text "<i><%= @cleaned_up_text %></i>" has been
-analyzed and found to be more <%= @result %>.
+Your text:
+<br><br>
+<span class="usertext"><%= @cleaned_up_text %></span>
+<br><br>
+has been analyzed and found to be:
+<br><br>
+<span class="result">
+  <span class="<%= @cssresult %>"><%= @result %>
+  </span>
+</span>
+<br>
+<br>
+<a href="/">Analyze again</a>
