@@ -1,31 +1,17 @@
 <div class='main'>
   <span class="usertext"><%= @cleaned_up_text %></span>
   <br><br>
-  Has been analyzed and found to be more
+  has been analyzed and found to have more
   <br><br>
   <span class="result">
-    <span class="<%= @cssresult %>"><%= @result.capitalize %>
+    <span class="<%= @cssresult %>"><%= @result.capitalize %> Sentiment
     </span>
   </span>
   <br>
   <br>
   <br>
-  <!-- <form class="inline" method="post" action="/result">
-    <label for="text_input"><h3>Enter text to analyze:</h3></label>
-    <div>
-      <textarea name="text_to_analyze" name="text_input"
-      rows="11" cols="75"><%= @previous_input %></textarea>
-    </div>
-      <input type="submit" value="Analyze">
-  </form>
-  <form class="inline" action="/random" method="post">
-      <input type="submit" value="Try a Random Phrase">
-  </form> -->
-  <!-- <form class="inline" action="/random" method="post"> -->
-    <a class="goback" href="/">Back</a>
-    <!-- <input type="submit" value="Try a Random Phrase"> -->
-    <span class="source">
-      <%= 'Text source: ' + @source unless @source.nil? %>
-    </span>
-  <!-- </form> -->
+  <a class="goback" href="/">Back</a>
+  <span class="source">
+    <%= 'Text source: ' + @source unless @source.nil? %>
+  </span>
 </div>
