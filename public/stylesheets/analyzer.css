@@ -49,3 +49,12 @@ a {
   border-radius: 6px;
   padding: 5px;
 }
+
+span.source {
+  display: inline;
+  float: right;
+}
+
+.goback {
+  font-size: 110%;
+}

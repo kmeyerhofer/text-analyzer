@@ -1,0 +1,31 @@
+I love you
+The eagles make nests for their young
+I used the stylesheet provided in the Sinatra Todos project
+No Linux support yet
+How the brain reads things is funny sometimes
+What time is the sad movie?
+Rotten Tomatoes is an American review aggregation website for film and television
+Walk the dog now
+A penny for your thoughts
+Don't put all your eggs in one basket 
+Picture paints a thousand words 
+Put wool over other people's eyes
+Take it with a grain of salt
+To hear something straight from the horse's mouth
+Feel a bit under the weather
+Don't give up the day job
+Don't count your chickens before the eggs have hatched
+Can't judge a book by its cover 
+Blessing in disguise 
+Barking up the wrong tree
+{text: "Ruby was created by Yukihiro Matsumoto, or "Matz", in Japan in the mid 1990's", source: "Introduction to Programming with Ruby\nCopyright \u00a9 2018 Launch School"}
+Ruby continues to gain popularity for its use in web application development
+In programming and computer science in general, there is a concept called abstraction. Abstraction ensures that as users, we're far removed from what's happening "under the hood". A simple example will help illustrate this concept
+If you apply the principles and techniques described in this book, you will build a strong basic knowledge of programming in Ruby
+Being a programmer is often perceived as a difficult task
+There is a shift in thinking that will take place and you will develop the ability to think deeply and clearly about a given problem
+Reading about programming and the act of programming are very different things
+Because of the large amount of information that must be remembered by a computer programmer, practicing certain skills until they become automatic is very helpful for beginners
+Practicing will cement the basics into your fingers and performing certain operations will become second nature and subconscious, allowing your brain to focus on higher level abstractions
+Buckle up and enjoy the ride
+In the world of computer programming, there is an infinite amount of information to learn

@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require 'tilt/erubis'
 require 'yaml'
 require_relative './lib/lexicon'
+require_relative './lib/random_sentence'
 
 
 configure do
@@ -19,12 +20,6 @@ end
 
 def analyze(text)
   Lexicon.new.analyze(text)
-end
-
-def random_result
-  line_array = []
-  File.open('data/random-queries.txt').each { |line| line_array << line }
-  line_array.sample
 end
 
 def css(result)
@@ -54,7 +49,9 @@ post '/result' do
 end
 
 post '/random' do
-  @cleaned_up_text = random_result
+  random_result = RandomSentence.new
+  @cleaned_up_text = random_result.selection
+  @source = random_result.source
   @result = analyze(@cleaned_up_text)
   @cssresult = css(@result)
   erb :result
