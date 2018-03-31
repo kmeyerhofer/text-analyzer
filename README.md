@@ -1,8 +1,8 @@
-#Naive Bayes Text Analyzer
+# Naive Bayes Text Analyzer
 
 Using the [nbayes gem](https://github.com/oasic/nbayes) to train and classify text input, this text analyzer processes input against a lexicon containing positive and negative opinion words and *Rotten Tomatoes* movie reviews.
 
-##To setup locally
+## To setup locally
 First: 
 `git clone https://github.com/kmeyerhofer/text-analyzer.git && cd text-analyzer`
 
