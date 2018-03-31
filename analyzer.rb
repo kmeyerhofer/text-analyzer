@@ -9,6 +9,7 @@ require_relative './lib/random_sentence'
 configure do
   enable :sessions
   set :session_secret, 'super secret' #change later
+  disable :show_exceptions
   # set :erb, :escape_html => true
 end
 

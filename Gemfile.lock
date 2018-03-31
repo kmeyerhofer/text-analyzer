@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/oasic/nbayes
+  revision: 3dd46bd2c8a2258ccdb69ee9ceff7d2fb5d62ed5
+  specs:
+    nbayes (0.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -6,7 +12,6 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     mustermann (1.0.2)
-    nbayes (0.1.1)
     rack (2.0.4)
     rack-protection (2.0.1)
       rack
@@ -33,11 +38,14 @@ PLATFORMS
 DEPENDENCIES
   erubis
   minitest
-  nbayes
+  nbayes!
   rack-test
   rake
   sinatra
   sinatra-contrib
+
+RUBY VERSION
+   ruby 2.4.0p0
 
 BUNDLED WITH
    1.16.1
