@@ -5,12 +5,12 @@ require 'yaml'
 require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
 
+APP_ROOT = File.dirname(__FILE__)
 
 configure do
   enable :sessions
-  set :session_secret, 'super secret' #change later
+  set :session_secret, 'super secret'
   disable :show_exceptions
-  # set :erb, :escape_html => true
 end
 
 helpers do
@@ -37,11 +37,11 @@ post '/result' do
   if @cleaned_up_text.size == 0
     session[:message] = "Please input text."
     session[:input] = params[:text_to_analyze]
-    redirect '/'
+    redirect to '/'
   elsif @cleaned_up_text.size > 750
     session[:message] = "Please input less than 750 characters."
     session[:input] = @cleaned_up_text
-    redirect '/'
+    redirect to '/'
   else
     @result = analyze(@cleaned_up_text)
     @cssresult = css(@result)

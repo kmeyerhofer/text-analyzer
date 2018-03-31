@@ -9,7 +9,7 @@
     positive or negative.
   </p>
 
-  <form class="inline" method="post" action="/result">
+  <form class="inline" method="post" action="<%= "#{url '/result'}" %>">
     <label for="text_input"><h3>Enter text to analyze:</h3></label>
     <div>
       <textarea name="text_to_analyze" name="text_input"
@@ -17,7 +17,7 @@
     </div>
       <input type="submit" value="Analyze">
     </form>
-    <form class="inline" action="/random" method="post">
+    <form class="inline" action="<%= "#{url '/random'}" %>" method="post">
       <input type="submit" value="Try a Random Phrase">
     </form>
 </div>
