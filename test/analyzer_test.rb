@@ -55,4 +55,9 @@ class AnalyzeTest < Minitest::Test
     get '/'
     assert_includes last_response.body, ">#{text}</textarea>"
   end
+
+  def test_successful_random_page
+    post '/random'
+    assert_equal 200, last_response.status
+  end
 end

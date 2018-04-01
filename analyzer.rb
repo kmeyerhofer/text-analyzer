@@ -5,8 +5,6 @@ require 'yaml'
 require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
 
-APP_ROOT = File.dirname(__FILE__)
-
 configure do
   enable :sessions
   set :session_secret, 'super secret'
