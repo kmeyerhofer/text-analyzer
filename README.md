@@ -3,7 +3,7 @@
 Using the [nbayes gem](https://github.com/oasic/nbayes) to train and classify text input, this text analyzer processes input against a lexicon containing positive and negative opinion words and *Rotten Tomatoes* movie reviews.
 
 ## To setup locally
-First: 
+First:
 `git clone https://github.com/kmeyerhofer/text-analyzer.git && cd text-analyzer`
 
 Then:
@@ -12,7 +12,7 @@ Then:
 Then:
 `bundle exec rake lexicon` to create the full lexicon .yml file.
 
-Then: 
+Then:
 `ruby analyzer.rb`
 
 Direct your browser to `localhost:4567` and input any phrase you'd like to analyze.
@@ -23,8 +23,8 @@ The data used to create the lexicon came from:
 * [http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html](http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html)
 * [http://www.cs.cornell.edu/people/pabo/movie-review-data](http://www.cs.cornell.edu/people/pabo/movie-review-data)
 
-Some of the Randomized sentence options come from Launch School:
-* "Introduction to Programming with Ruby". Written by Launch School, Copyright © 2018 Launch School 
+Some of the Randomized sentence options come from [Launch School](https://launchschool.com):
+* "Introduction to Programming with Ruby". Written by Launch School, Copyright © 2018 [Launch School](https://launchschool.com) 
 
 ## Citations
 
