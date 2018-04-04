@@ -9,3 +9,5 @@ gem 'rake'
 gem 'rack-test'
 
 ruby '2.4.0'
+
+gem 'pry'
