@@ -1,5 +1,5 @@
-<div class="main">
-  <div class="leftside"
+<section class="container">
+  <div class="leftside">
     <h1>Naive Bayes Text Analyzer</h1>
     <p>
       Your text input is processed against a lexicon containing positive and
@@ -10,25 +10,30 @@
       positive or negative.
     </p>
 
-    <form class="inline" method="post" action="<%= url '/result' %>">
+    <form method="post" action="<%= url '/result' %>">
       <label for="text_input"><h3>Enter text to analyze:</h3></label>
       <div>
         <textarea name="text_to_analyze" name="text_input"
-        rows="11" cols="75"><%= @previous_input %></textarea>
+          rows="11" cols="55"><%= form_text %></textarea>
       </div>
-        <input type="submit" value="Analyze">
-      </form>
-      <form class="inline" action="<%= url '/random' %>" method="post">
-        <input type="submit" value="Try a Random Phrase">
-      </form>
+      <input type="submit" value="Analyze">
+    </form>
+    <form class="random" action="<%= url '/random' %>" method="post">
+      <input type="submit" value="Try a Random Phrase">
+    </form>
   </div>
-  <div class="rightside"
-
+  <div class="rightside">
+    <h3>Your most recent searches:</h3>
+    <ul>
+    <% display_input(@previous_input) do |input| %>
+      <li><%= input %></li>
+    <% end %>
+    </ul>
   </div>
-</div>
+</section>
 
 <br><br>
-<div class="references">
+<div class="white-border">
 <h4>The data used in this project came from:</h4>
 <ul>
   <li><a href="http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">

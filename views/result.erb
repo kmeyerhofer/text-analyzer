@@ -1,17 +1,16 @@
-<div class='main'>
+<div class="white-border">
   <span class="usertext"><%= @cleaned_up_text %></span>
   <br><br>
   has been analyzed and found to have more
   <br><br>
   <span class="result">
-    <span class="<%= @cssresult %>"><%= @result.capitalize %> Sentiment
-    </span>
+    <span class="<%= @cssresult %>"><%= @result.capitalize %> Sentiment</span>
   </span>
   <br>
   <br>
   <br>
   <a class="goback" href="<%= url '/' %>">Back</a>
   <span class="source">
-    <%= 'Text source: ' + @source unless @source.nil? %>
+    <%= ('Text source: ' + @source) unless @source.nil? %>
   </span>
 </div>
