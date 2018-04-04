@@ -1,29 +1,35 @@
 <div class="main">
-  <h1>Naive Bayes Text Analyzer</h1>
-  <p>
-    Your text input is processed against a lexicon containing positive and
-    negative opinion words and <i>Rotten Tomatoes</i> movie reviews.
-  </p>
-  <p>
-    The Text Analyzer will classify your input text as either
-    positive or negative.
-  </p>
+  <div class="leftside"
+    <h1>Naive Bayes Text Analyzer</h1>
+    <p>
+      Your text input is processed against a lexicon containing positive and
+      negative opinion words and <i>Rotten Tomatoes</i> movie reviews.
+    </p>
+    <p>
+      The Text Analyzer will classify your input text as either
+      positive or negative.
+    </p>
 
-  <form class="inline" method="post" action="<%= "#{url '/result'}" %>">
-    <label for="text_input"><h3>Enter text to analyze:</h3></label>
-    <div>
-      <textarea name="text_to_analyze" name="text_input"
-      rows="11" cols="75"><%= @previous_input %></textarea>
-    </div>
-      <input type="submit" value="Analyze">
-    </form>
-    <form class="inline" action="<%= "#{url '/random'}" %>" method="post">
-      <input type="submit" value="Try a Random Phrase">
-    </form>
+    <form class="inline" method="post" action="<%= url '/result' %>">
+      <label for="text_input"><h3>Enter text to analyze:</h3></label>
+      <div>
+        <textarea name="text_to_analyze" name="text_input"
+        rows="11" cols="75"><%= @previous_input %></textarea>
+      </div>
+        <input type="submit" value="Analyze">
+      </form>
+      <form class="inline" action="<%= url '/random' %>" method="post">
+        <input type="submit" value="Try a Random Phrase">
+      </form>
+  </div>
+  <div class="rightside"
+
+  </div>
 </div>
 
 <br><br>
-The data used in this project came from:
+<div class="references">
+<h4>The data used in this project came from:</h4>
 <ul>
   <li><a href="http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">
     http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html
@@ -32,7 +38,7 @@ The data used in this project came from:
     http://www.cs.cornell.edu/people/pabo/movie-review-data
   </a></li>
 </ul>
-Citations:
+<h4>Citations:</h4>
 <ul>
   <li>Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews."
     Proceedings of the ACM SIGKDD International Conference on Knowledge
@@ -42,6 +48,7 @@ Citations:
     with respect to rating scales.", Proceedings of the ACL, 2005.
   </li>
 </ul>
+</div>
 
 <footer>
   By Kurt Meyerhofer for
