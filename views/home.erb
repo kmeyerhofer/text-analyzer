@@ -23,12 +23,21 @@
     </form>
   </div>
   <div class="rightside">
-    <h3>Your most recent searches:</h3>
-    <ul>
-    <% display_input(@previous_input) do |input| %>
-      <li><%= input %></li>
-    <% end %>
+    <% if session[:input].count >= 1 %>
+      <h3>Your most recent entries:</h3>
+      <form method="post" action="<%= url '/clear' %>">
+        <button type="submit" class="clear">Clear</button>
+      </form>
+    <ul class="rightsidescroll">
+      <div class="recent-entries">
+        <% session[:input].each do |input| %>
+          <% input.each_pair do |words, result| %>
+            <%= "<li class=\"#{result}\">#{words}</li>" %>
+          <% end %>
+        <% end %>
+      </div>
     </ul>
+    <% end %>
   </div>
 </section>
 

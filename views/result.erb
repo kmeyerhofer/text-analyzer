@@ -9,8 +9,14 @@
   <br>
   <br>
   <br>
-  <a class="goback" href="<%= url '/' %>">Back</a>
-  <span class="source">
-    <%= ('Text source: ' + @source) unless @source.nil? %>
-  </span>
+  <form method="get" action="<%= url '/' %>">
+    <button type="submit" class="goback">Back</button>
+  </form>
 </div>
+<br>
+
+<% if @source %>
+<span class="source">
+  <%= ('Text source: ' + @source) %>
+</span>
+<% end %>
