@@ -60,4 +60,27 @@ class AnalyzeTest < Minitest::Test
     post '/random'
     assert_equal 200, last_response.status
   end
+
+  def test_recent_entries
+    text1 = "the train to denver" # positive
+    text2 = "you missed it!" # negative
+    post '/result', text_to_analyze: text1
+    post '/result', text_to_analyze: text2
+    get '/'
+    assert_includes last_response.body, text1
+    assert_includes last_response.body, text2
+  end
+
+  def test_clear_recent_entries
+    text1 = "the train to denver" # positive
+    text2 = "you missed it!" # negative
+    post '/result', text_to_analyze: text1
+    post '/result', text_to_analyze: text2
+    get '/'
+    assert_includes last_response.body, text1
+    assert_includes last_response.body, text2
+    post '/clear'
+    refute_includes last_response.body, text1
+    refute_includes last_response.body, text2
+  end
 end

@@ -5,12 +5,10 @@ require 'yaml'
 require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
 
-require 'pry'
-
 configure do
   enable :sessions
   set :session_secret, 'super secret'
-  # disable :show_exceptions
+  disable :show_exceptions
 end
 
 before do
@@ -34,11 +32,6 @@ helpers do
     result == 'positive' ? result : 'negative'
   end
 
-  def display_input(array)
-    return unless block_given?
-    array.each { |input| yield(input) }
-  end
-
   def form_text
     if session[:text_error]
       session.delete(:text_error)
@@ -46,9 +39,7 @@ helpers do
   end
 end
 
-
 get '/' do
-  @previous_input = session[:input]
   erb :home
 end
 
@@ -58,14 +49,17 @@ post '/result' do
     session[:message] = "Please input text."
     session[:text_error] = params[:text_to_analyze]
     redirect to '/'
-  elsif @cleaned_up_text.size > 750
+  elsif @cleaned_up_text.size > 750 && @cleaned_up_text.size < 1000
     session[:message] = "Please input less than 750 characters."
     session[:text_error] = @cleaned_up_text
+    redirect to '/'
+  elsif @cleaned_up_text.size >= 1000
+    session[:message] = "Please input text less than 750 characters."
     redirect to '/'
   else
     @result = analyze(@cleaned_up_text)
     @cssresult = css(@result)
-    session[:input].unshift(@cleaned_up_text)
+    session[:input].unshift(@cleaned_up_text => @cssresult)
     erb :result
   end
 end
@@ -77,4 +71,9 @@ post '/random' do
   @result = analyze(@cleaned_up_text)
   @cssresult = css(@result)
   erb :result
+end
+
+post '/clear' do
+  session[:input] = []
+  redirect to '/'
 end
