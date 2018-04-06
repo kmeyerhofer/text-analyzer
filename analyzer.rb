@@ -31,12 +31,6 @@ helpers do
   def css(result)
     result == 'positive' ? result : 'negative'
   end
-
-  def form_text
-    if session[:text_error]
-      session.delete(:text_error)
-    end
-  end
 end
 
 get '/' do
@@ -47,14 +41,9 @@ post '/result' do
   @cleaned_up_text = clean_text(params[:text_to_analyze].to_s.strip)
   if @cleaned_up_text.size == 0
     session[:message] = "Please input text."
-    session[:text_error] = params[:text_to_analyze]
     redirect to '/'
-  elsif @cleaned_up_text.size > 750 && @cleaned_up_text.size < 1000
+  elsif params[:text_to_analyze].size >= 750
     session[:message] = "Please input less than 750 characters."
-    session[:text_error] = @cleaned_up_text
-    redirect to '/'
-  elsif @cleaned_up_text.size >= 1000
-    session[:message] = "Please input text less than 750 characters."
     redirect to '/'
   else
     @result = analyze(@cleaned_up_text)
@@ -67,7 +56,7 @@ end
 post '/random' do
   random_result = RandomSentence.new
   @cleaned_up_text = random_result.selection
-  @source = random_result.source
+  @text_source = random_result.source
   @result = analyze(@cleaned_up_text)
   @cssresult = css(@result)
   erb :result
@@ -75,5 +64,10 @@ end
 
 post '/clear' do
   session[:input] = []
+  redirect to '/'
+end
+
+not_found do
+  session[:message] = 'Page not found.'
   redirect to '/'
 end
