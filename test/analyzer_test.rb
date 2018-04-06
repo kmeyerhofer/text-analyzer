@@ -43,8 +43,6 @@ class AnalyzeTest < Minitest::Test
     post '/result', text_to_analyze: '   '
     assert_equal 302, last_response.status
     assert_equal 'Please input text.', session[:message]
-    get '/'
-    assert_includes last_response.body, ">   </textarea>"
   end
 
   def test_too_long_text_error
@@ -52,8 +50,6 @@ class AnalyzeTest < Minitest::Test
     post '/result', text_to_analyze: text
     assert_equal 302, last_response.status
     assert_equal 'Please input less than 750 characters.', session[:message]
-    get '/'
-    assert_includes last_response.body, ">#{text}</textarea>"
   end
 
   def test_successful_random_page
