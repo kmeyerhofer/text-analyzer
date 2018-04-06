@@ -32,7 +32,7 @@
       <div class="recent-entries">
         <% session[:input].each do |input| %>
           <% input.each_pair do |words, result| %>
-            <%= "<li class=\"#{result}\">#{words}</li>" %>
+            <%= "<li><span class=\"#{result}\">#{words}</span></li>" %>
           <% end %>
         <% end %>
       </div>

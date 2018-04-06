@@ -75,17 +75,14 @@ footer {
 
 .negative {
   background-color: #b30000;
-  border-radius: 6px;
-  padding: 5px;
+  border-radius: 3px;
 }
 
 .positive {
   background-color: #00b300;
-  border-radius: 6px;
-  padding: 5px;
+  border-radius: 3px;
 }
 
 .recent-entries {
   color: #fff;
-  padding: 5px 2px;
 }
