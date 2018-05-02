@@ -3,7 +3,7 @@ require_relative './lib/create_lexicon.rb'
 
 task :default => [:test]
 
-desc 'Creates needed local lexicon'
+desc 'Inserts data into local PostgreSQL database'
 task :lexicon do
   lexicon = CreateLexicon.new
 end

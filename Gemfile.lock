@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/oasic/nbayes
-  revision: 3dd46bd2c8a2258ccdb69ee9ceff7d2fb5d62ed5
+  remote: https://github.com/kmeyerhofer/nbayes
+  revision: 86fb1f9a1afdd98517c5b51930420e57710815b8
   specs:
     nbayes (0.1.2)
 
@@ -14,6 +14,7 @@ GEM
     minitest (5.11.3)
     multi_json (1.13.1)
     mustermann (1.0.2)
+    pg (1.0.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -44,6 +45,7 @@ DEPENDENCIES
   erubis
   minitest
   nbayes!
+  pg
   pry
   rack-test
   rake
