@@ -4,6 +4,11 @@ require 'tilt/erubis'
 require 'yaml'
 require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
+require_relative './lib/dbconnect'
+
+
+
+require 'pry'
 
 configure do
   enable :sessions
@@ -31,6 +36,11 @@ helpers do
   def css(result)
     result == 'positive' ? result : 'negative'
   end
+
+  def save_user_entry(text, result)
+    db = DBConnect.new
+    db.user_entry(text, result)
+  end
 end
 
 get '/' do
@@ -49,6 +59,7 @@ post '/result' do
     @result = analyze(@cleaned_up_text)
     @cssresult = css(@result)
     session[:input].unshift(@cleaned_up_text => @cssresult)
+    save_user_entry(params[:text_to_analyze], @cssresult)
     erb :result
   end
 end

@@ -16,7 +16,6 @@ class CreateLexicon
         positive_or_negative(file)) unless line.start_with?(';')
       end
     end
-    words.dump('./data/combined-lexicon.yml')
   end
 
   def positive_or_negative(file)

@@ -4,7 +4,7 @@ class Lexicon
   attr_reader :words
 
   def initialize
-    @words = NBayes::Base.new.load('./data/combined-lexicon.yml')
+    @words = NBayes::Base.new
   end
 
   def analyze(phrase)
