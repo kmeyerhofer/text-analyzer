@@ -33,9 +33,9 @@ class AnalyzeTest < Minitest::Test
   end
 
   def test_text_analyze_positive
-    post '/result', text_to_analyze: 'happy bugs'
+    post '/result', text_to_analyze: 'testing'
     assert_equal 200, last_response.status
-    assert_includes last_response.body, 'happy bugs'
+    assert_includes last_response.body, 'testing'
     assert_includes last_response.body, "Positive"
   end
 
