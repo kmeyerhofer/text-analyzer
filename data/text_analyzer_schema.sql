@@ -16,14 +16,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -34,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: categories; Type: TABLE; Schema: public; Owner: kurt
+-- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.categories (
@@ -43,10 +43,8 @@ CREATE TABLE public.categories (
 );
 
 
-ALTER TABLE public.categories OWNER TO kurt;
-
 --
--- Name: category_id_seq; Type: SEQUENCE; Schema: public; Owner: kurt
+-- Name: category_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.category_id_seq
@@ -58,17 +56,15 @@ CREATE SEQUENCE public.category_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.category_id_seq OWNER TO kurt;
-
 --
--- Name: category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kurt
+-- Name: category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.category_id_seq OWNED BY public.categories.id;
 
 
 --
--- Name: tokens; Type: TABLE; Schema: public; Owner: kurt
+-- Name: tokens; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.tokens (
@@ -79,10 +75,8 @@ CREATE TABLE public.tokens (
 );
 
 
-ALTER TABLE public.tokens OWNER TO kurt;
-
 --
--- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: kurt
+-- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.tokens_id_seq
@@ -94,17 +88,15 @@ CREATE SEQUENCE public.tokens_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tokens_id_seq OWNER TO kurt;
-
 --
--- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kurt
+-- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.tokens_id_seq OWNED BY public.tokens.id;
 
 
 --
--- Name: user_entries; Type: TABLE; Schema: public; Owner: kurt
+-- Name: user_entries; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.user_entries (
@@ -115,10 +107,8 @@ CREATE TABLE public.user_entries (
 );
 
 
-ALTER TABLE public.user_entries OWNER TO kurt;
-
 --
--- Name: user_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: kurt
+-- Name: user_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.user_entries_id_seq
@@ -130,38 +120,36 @@ CREATE SEQUENCE public.user_entries_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_entries_id_seq OWNER TO kurt;
-
 --
--- Name: user_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: kurt
+-- Name: user_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.user_entries_id_seq OWNED BY public.user_entries.id;
 
 
 --
--- Name: categories id; Type: DEFAULT; Schema: public; Owner: kurt
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.category_id_seq'::regclass);
 
 
 --
--- Name: tokens id; Type: DEFAULT; Schema: public; Owner: kurt
+-- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tokens ALTER COLUMN id SET DEFAULT nextval('public.tokens_id_seq'::regclass);
 
 
 --
--- Name: user_entries id; Type: DEFAULT; Schema: public; Owner: kurt
+-- Name: user_entries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_entries ALTER COLUMN id SET DEFAULT nextval('public.user_entries_id_seq'::regclass);
 
 
 --
--- Name: categories category_pkey; Type: CONSTRAINT; Schema: public; Owner: kurt
+-- Name: categories category_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.categories
@@ -169,7 +157,7 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: kurt
+-- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tokens
@@ -177,7 +165,7 @@ ALTER TABLE ONLY public.tokens
 
 
 --
--- Name: user_entries user_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: kurt
+-- Name: user_entries user_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_entries
@@ -185,7 +173,7 @@ ALTER TABLE ONLY public.user_entries
 
 
 --
--- Name: tokens tokens_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: kurt
+-- Name: tokens tokens_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tokens
@@ -193,7 +181,7 @@ ALTER TABLE ONLY public.tokens
 
 
 --
--- Name: user_entries user_entries_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: kurt
+-- Name: user_entries user_entries_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_entries
