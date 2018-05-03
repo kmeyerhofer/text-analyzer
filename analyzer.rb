@@ -6,10 +6,6 @@ require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
 require_relative './lib/dbconnect'
 
-
-
-require 'pry'
-
 configure do
   enable :sessions
   set :session_secret, 'super secret'
