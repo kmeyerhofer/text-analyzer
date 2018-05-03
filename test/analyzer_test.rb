@@ -8,7 +8,7 @@ class AnalyzeTest < Minitest::Test
   include Rack::Test::Methods
 
   def connection
-    PG.connect(dbname: 'text_analyzer_dev')
+    PG.connect(dbname: 'text_analyzer')
   end
 
   def setup

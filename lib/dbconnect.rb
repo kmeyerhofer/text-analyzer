@@ -1,7 +1,7 @@
 class DBConnect
   attr_accessor :connect
   def initialize
-    @connect = PG.connect(dbname: 'text_analyzer_dev')
+    @connect = PG.connect(dbname: 'text_analyzer')
   end
 
   def user_entry(text, result)
