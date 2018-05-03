@@ -11,4 +11,14 @@ class DBConnect
     SQL
     connect.exec_params(sql, [text, result])
   end
+
+  def token_count
+    sql = "SELECT count(phrase) FROM tokens;"
+    connect.exec(sql).values[0][0].to_i
+  end
+
+  def category_count
+    sql = "SELECT count(name) FROM categories;"
+    connect.exec(sql).values[0][0].to_i
+  end
 end
