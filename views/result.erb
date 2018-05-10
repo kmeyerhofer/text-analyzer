@@ -1,19 +1,18 @@
-<div class="white-border">
+<section class="analysis-result">
   <span class="usertext"><%= @cleaned_up_text %></span>
-  <br><br>
+  <br><br> <!-- Get rid of this. -->
   has been analyzed and found to have more
-  <br><br>
+  <br><br> <!-- Get rid of this. -->
   <span class="result">
     <span class="<%= @cssresult %>"><%= @result.capitalize %> Sentiment</span>
   </span>
-  <br>
-  <br>
-  <br>
+  <br> <!-- Get rid of this. -->
+  <br> <!-- Get rid of this. -->
+  <br> <!-- Get rid of this. -->
   <form method="get" action="<%= url '/' %>">
     <button type="submit" class="goback">Back</button>
   </form>
-</div>
-<br>
+</section>
 
 <% if @text_source %>
 <span class="source">

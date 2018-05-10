@@ -1,9 +1,9 @@
 <section class="container">
-  <div class="leftside">
+  <div class="left-side">
     <h1>Naive Bayes Text Analyzer</h1>
     <p>
       Your text input is processed against a lexicon containing positive and
-      negative opinion words and <i>Rotten Tomatoes</i> movie reviews.
+      negative opinion words and <em>Rotten Tomatoes</em> movie reviews.
     </p>
     <p>
       The Text Analyzer will classify your input text as either
@@ -11,23 +11,28 @@
     </p>
 
     <form method="post" action="<%= url '/result' %>">
-      <label for="text_input"><h3>Enter text to analyze:</h3></label>
+      <label for="text_input">
+        <h3>Enter text to analyze:</h3>
+      </label>
       <div>
         <textarea name="text_to_analyze" rows="11" cols="55"></textarea>
       </div>
       <input type="submit" value="Analyze">
     </form>
+
     <form class="random" action="<%= url '/random' %>" method="post">
       <input type="submit" value="Try a Random Phrase">
     </form>
   </div>
-  <div class="rightside">
+
+  <div class="right-side">
     <% if session[:input].count >= 1 %>
       <h3>Your most recent entries:</h3>
       <form method="post" action="<%= url '/clear' %>">
         <button type="submit" class="clear">Clear</button>
       </form>
-    <ul class="rightsidescroll">
+
+    <ul class="right-side-scroll">
       <div class="recent-entries">
         <% session[:input].each do |input| %>
           <% input.each_pair do |words, result| %>
@@ -40,34 +45,38 @@
   </div>
 </section>
 
-<br><br>
-<div class="white-border">
-<h4>The data used in this project came from:</h4>
-<ul>
-  <li><a href="http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">
-    http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html
-  </a></li>
-  <li><a href="http://www.cs.cornell.edu/people/pabo/movie-review-data">
-    http://www.cs.cornell.edu/people/pabo/movie-review-data
-  </a></li>
-</ul>
-<h4>Citations:</h4>
-<ul>
-  <li>Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews."
-    Proceedings of the ACM SIGKDD International Conference on Knowledge
-    Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, Washington, USA
-  </li>
-  <li>Bo Pang and Lillian Lee, "Seeing stars: Exploiting class relationships for sentiment categorization
-    with respect to rating scales.", Proceedings of the ACL, 2005.
-  </li>
-</ul>
+<section class="bottom-data">
+  <h4>The data used in this project came from:</h4>
+  <ul>
+    <li><a href="http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">
+      http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html
+    </a></li>
+    <li><a href="http://www.cs.cornell.edu/people/pabo/movie-review-data">
+      http://www.cs.cornell.edu/people/pabo/movie-review-data
+    </a></li>
+  </ul>
 
-<h4>Data retention information</h4>
-  <p>Your text entered for analysis is saved for project improvement.
-    The information saved are text input, analysis result and timestamp
-    of submission. This data will not be sold or shared.</p>
+  <h4>Citations:</h4>
+  <ul>
+    <li>
+      Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews."
+      Proceedings of the ACM SIGKDD International Conference on Knowledge
+      Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, Washington, USA
+    </li>
+    <li>
+      Bo Pang and Lillian Lee, "Seeing stars: Exploiting class relationships for sentiment categorization
+      with respect to rating scales.", Proceedings of the ACL, 2005.
+    </li>
+  </ul>
 
-</div>
+  <h4>Data retention information</h4>
+    <p>
+      Your text entered for analysis is saved for project improvement.
+      The information saved are text input, analysis result and timestamp
+      of submission. This data will not be sold or shared.
+    </p>
+
+</section>
 
 
 <footer>

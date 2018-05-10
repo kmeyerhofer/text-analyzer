@@ -7,19 +7,23 @@ footer {
   padding: 10px;
 }
 
-.container {
+section {
   border: 6px solid white;
-  min-height: 500px;
-  overflow: auto;
 }
 
-.leftside {
+.container {
+  min-height: 500px;
+  overflow: auto;
+  margin-bottom: 30px;
+}
+
+.left-side {
   position: absolute;
   left: 20px;
   width: 50%;
 }
 
-.rightside {
+.right-side {
   position: absolute;
   text-align: center;
   right: 13px;
@@ -28,7 +32,7 @@ footer {
   overflow-wrap: break-word;
 }
 
-.rightsidescroll {
+.right-side-scroll {
   height: 440px;
   overflow: auto;
   text-align: left;
@@ -40,9 +44,13 @@ footer {
   right: 9px;
 }
 
-.white-border {
-  border: 6px solid white;
+.bottom-data {
   padding: 10px;
+}
+
+.analysis-result {
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .random {
@@ -51,7 +59,7 @@ footer {
   left: 218px;
 }
 
-.message {
+.flash-message {
   padding: 15px;
   background-color: #ca0000;
   color: #fff;
@@ -64,6 +72,7 @@ footer {
   border-radius: 4px;
   font-size: 150%;
   overflow-wrap: break-word;
+  /* margin-bottom: 80px; */
 }
 
 .result {
