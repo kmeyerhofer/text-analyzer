@@ -1,21 +1,18 @@
 <section class="analysis-result">
   <span class="usertext"><%= @cleaned_up_text %></span>
-  <br><br> <!-- Get rid of this. -->
-  has been analyzed and found to have more
-  <br><br> <!-- Get rid of this. -->
+  <p>
+    has been analyzed and found to have more
+  </p>
   <span class="result">
     <span class="<%= @cssresult %>"><%= @result.capitalize %> Sentiment</span>
   </span>
-  <br> <!-- Get rid of this. -->
-  <br> <!-- Get rid of this. -->
-  <br> <!-- Get rid of this. -->
+
   <form method="get" action="<%= url '/' %>">
     <button type="submit" class="goback">Back</button>
   </form>
+  <% if @text_source %>
+  <div class="source">
+    <%= ('Text source: ' + @text_source) %>
+  </div>
+  <% end %>
 </section>
-
-<% if @text_source %>
-<span class="source">
-  <%= ('Text source: ' + @text_source) %>
-</span>
-<% end %>
