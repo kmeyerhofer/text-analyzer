@@ -7,8 +7,12 @@ require_relative '../analyzer'
 class AnalyzeTest < Minitest::Test
   include Rack::Test::Methods
 
+  def db_name
+    'text_analyzer_dev'
+  end
+
   def connection
-    PG.connect(dbname: 'text_analyzer')
+    PG.connect(dbname: db_name)
   end
 
   def setup
@@ -69,14 +73,20 @@ class AnalyzeTest < Minitest::Test
   def test_no_text_error
     post '/result', text_to_analyze: '   '
     assert_equal 302, last_response.status
-    assert_equal 'Please input text.', session[:message]
+    assert_equal 'Please input text.', session[:flash_message]
   end
 
   def test_too_long_text_error
     text = "#{'abcdefghij' * 76}"
     post '/result', text_to_analyze: text
     assert_equal 302, last_response.status
-    assert_equal 'Please input less than 750 characters.', session[:message]
+    assert_equal 'Please input less than 750 characters.',
+      session[:flash_message]
+  end
+
+  def test_page_not_found
+    get '/anythingbutthistest'
+    assert_equal 'Page not found.', session[:flash_message]
   end
 
   def test_successful_random_page
@@ -84,16 +94,16 @@ class AnalyzeTest < Minitest::Test
     assert_equal 200, last_response.status
   end
 
-  def test_recent_entries_with_result_class
-    @phrase = 'wheat' # positive
+  def test_recent_entries_with_result_class_negative
+    @phrase = 'wheat' # negative
     post '/result', text_to_analyze: @phrase
-    assert_includes last_response.body, 'Positive'
+    assert_includes last_response.body, 'Negative'
     get '/'
     assert_includes last_response.body, @phrase
-    assert_includes last_response.body, "class=\"positive\""
+    assert_includes last_response.body, "class=\"negative\""
   end
 
-  def test_clear_recent_entries
+  def test_clear_recent_entries_with_result_negative
     @phrase = 'you missed it!' # negative
     post '/result', text_to_analyze: @phrase
     assert_includes last_response.body, 'Negative'
@@ -105,16 +115,16 @@ class AnalyzeTest < Minitest::Test
   end
 
   def test_database_categories
-    assert_equal ['positive', 'negative'], Lexicon.new.words.data.data.keys
+    assert_equal ['positive', 'negative'], Lexicon.new(db_name).words.data.data.keys
   end
 
   def test_database_token_count
     db_tokens = connection.exec('SELECT count(*) FROM tokens')[0]['count']
-    assert_equal db_tokens.to_i, Lexicon.new.words.vocab.tokens.count
+    assert_equal db_tokens.to_i, Lexicon.new(db_name).words.vocab.tokens.count
   end
 
   def test_database_category_count
     db_categories = connection.exec('SELECT count(*) FROM categories')[0]['count']
-    assert_equal db_categories.to_i, Lexicon.new.words.data.data.keys.count
+    assert_equal db_categories.to_i, Lexicon.new(db_name).words.data.data.keys.count
   end
 end
