@@ -3,7 +3,7 @@
    License: none (public domain)
 */
 
-/* html, body, div, span, applet, object, iframe,
+html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -24,7 +24,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-/*article, aside, details, figcaption, figure,
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -45,10 +45,58 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-} */
+}
 
-/* End of CSS Reset */
+/* End of CSS Reset
+Beginning of CSS Normalization */
+html {
+  font-size: 16px;
+}
+h1 {
+  font-weight: bold;
+  font-size: 2rem;
+  padding: .75rem;
+}
 
+h2 {
+	font-weight: bold;
+	font-size: 1.75rem;
+	padding: .85rem;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.4rem;
+  padding: .5rem;
+}
+
+h4 {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: .4rem;
+  margin: 10px;
+}
+
+p {
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+ul {
+  list-style-type: square;
+  font-family: sans-serif;
+	padding: 10px 0;
+}
+
+li {
+  padding:5px 0 5px 8px;
+}
+
+footer {
+  font-family: sans-serif;
+}
+
+/* Project Styling */
 body {
   background-color: #9df;
 }
@@ -68,6 +116,10 @@ section {
   margin-bottom: 15px;
 }
 
+.container li {
+  margin-left: 14px;
+}
+
 .left-side {
   position: absolute;
   left: 20px;
@@ -78,9 +130,17 @@ section {
   position: absolute;
   text-align: center;
   right: 13px;
-  width: 40%;
+  width: 45%;
   height: 500px;
   overflow-wrap: break-word;
+}
+
+.right-side h3 {
+	text-align: left;
+}
+
+.right-side span {
+	line-height: 1.5;
 }
 
 .right-side-scroll {
@@ -99,13 +159,21 @@ section {
   padding: 10px;
 }
 
+.bottom-data ul {
+  margin: 0 0 10px 45px;
+}
+
+.bottom-data p {
+  margin-left: 20px;
+}
+
 .analysis-result {
   padding: 10px;
   margin-bottom: 20px;
 }
 
 .analysis-result p {
-  margin: 15px 0 15px 0;
+  margin: 15px 0;
 }
 
 .analysis-result form {
@@ -128,26 +196,29 @@ section {
 
 .usertext {
   background-color: #0bf;
-  border-radius: 4px;
-  font-size: 150%;
+  font-size: 1.5rem;
   overflow-wrap: break-word;
-  margin-bottom: 20px;
+  margin: 10px 0;
+	line-height: 1.45;
+	padding: 3px;
 }
 
 .result {
   padding: 5px 2px;
   font-weight: bold;
-  font-size: 150%;
+  font-size: 1.5rem;
   color: #fff;
 }
 
 .negative {
   background-color: #b30000;
+	padding: 3px;
   border-radius: 3px;
 }
 
 .positive {
   background-color: #00b300;
+	padding: 3px;
   border-radius: 3px;
 }
 
