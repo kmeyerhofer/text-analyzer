@@ -3,8 +3,8 @@ require 'nbayes'
 class Lexicon
   attr_reader :words
 
-  def initialize
-    @words = NBayes::Base.new
+  def initialize(db_name)
+    @words = NBayes::Base.new(db_name)
   end
 
   def analyze(phrase)

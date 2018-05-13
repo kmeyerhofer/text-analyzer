@@ -8,7 +8,7 @@ class AnalyzeTest < Minitest::Test
   include Rack::Test::Methods
 
   def db_name
-    'text_analyzer_dev'
+    ENV["DATABASE_NAME"]
   end
 
   def connection
@@ -119,7 +119,8 @@ class AnalyzeTest < Minitest::Test
   end
 
   def test_database_token_count
-    db_tokens = connection.exec('SELECT count(*) FROM tokens')[0]['count']
+    db_tokens = connection.exec(
+      'SELECT count(DISTINCT phrase) FROM tokens')[0]['count']
     assert_equal db_tokens.to_i, Lexicon.new(db_name).words.vocab.tokens.count
   end
 

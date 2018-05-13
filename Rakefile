@@ -4,16 +4,40 @@ require_relative './lib/dbconnect.rb'
 
 task :default => [:test]
 
+def db_name
+  ENV["DATABASE_NAME"]
+end
+
+def set_db
+  DBConnect.new(db_name)
+end
+
 desc 'Inserts data into local PostgreSQL database'
-task :lexicon do
-  db = DBConnect.new
-  token_count = db.token_count
-  category_count = db.category_count
-  if token_count <= 25000 && category_count < '2'
-    CreateLexicon.new
+task :createlexicon do
+  db = set_db
+  if db.connect && (db.token_count < 1 && db.category_count < 1)
+    CreateLexicon.new(db_name)
   else
     puts "Lexicon already created."
   end
+end
+
+desc 'Stats of current text-analyzer database.'
+task :stats do
+  db = set_db
+  puts <<~STATS
+  Distinct Tokens:  #{db.distinct_token_count}
+  Token Count:      #{db.token_count}
+  Category Count:   #{db.category_count}
+  User Entry Count: #{db.user_entry_count}
+  STATS
+end
+
+desc 'Deletes current tokens and re-adds them to database.'
+task :reinserttokens do
+  db = set_db
+  db.delete_all_tokens
+  CreateLexicon.new(db_name)
 end
 
 desc 'Run tests.'

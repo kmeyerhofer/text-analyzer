@@ -8,7 +8,7 @@ require_relative './lib/dbconnect'
 
 configure do
   enable :sessions
-  set :session_secret, 'super secret'
+  set :session_secret, ENV["SESSION_SECRET"]
   disable :show_exceptions
 end
 
@@ -21,12 +21,16 @@ before do
 end
 
 helpers do
+  def db_name
+    ENV["DATABASE_NAME"]
+  end
+
   def clean_text(text)
     Rack::Utils.escape_html(text)
   end
 
   def analyze(text)
-    Lexicon.new.analyze(text)
+    Lexicon.new(db_name).analyze(text)
   end
 
   def css(result)
@@ -34,7 +38,7 @@ helpers do
   end
 
   def save_user_entry(text, result)
-    db = DBConnect.new
+    db = DBConnect.new(db_name)
     db.user_entry(text, result)
   end
 end
@@ -46,10 +50,10 @@ end
 post '/result' do
   @cleaned_up_text = clean_text(params[:text_to_analyze].to_s.strip)
   if @cleaned_up_text.size == 0
-    session[:message] = "Please input text."
+    session[:flash_message] = "Please input text."
     redirect to '/'
   elsif params[:text_to_analyze].size >= 750
-    session[:message] = "Please input less than 750 characters."
+    session[:flash_message] = "Please input less than 750 characters."
     redirect to '/'
   else
     @result = analyze(@cleaned_up_text)
@@ -75,6 +79,6 @@ post '/clear' do
 end
 
 not_found do
-  session[:message] = 'Page not found.'
+  session[:flash_message] = 'Page not found.'
   redirect to '/'
 end

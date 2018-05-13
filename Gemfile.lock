@@ -1,13 +1,13 @@
 GIT
   remote: https://github.com/kmeyerhofer/nbayes
-  revision: 2cc851bed31aba12fb1fa05e2ba18bbe4acf4cc7
+  revision: ee800939ba7723d5cf5db3b0cc51ff368edf8542
   specs:
     nbayes (0.1.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    backports (3.11.1)
+    backports (3.11.3)
     coderay (1.1.2)
     erubis (2.7.0)
     method_source (0.9.0)
@@ -18,7 +18,7 @@ GEM
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    rack (2.0.4)
+    rack (2.0.5)
     rack-protection (2.0.1)
       rack
     rack-test (1.0.0)
