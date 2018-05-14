@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'tilt/erubis'
-require 'yaml'
 require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
 require_relative './lib/dbconnect'
