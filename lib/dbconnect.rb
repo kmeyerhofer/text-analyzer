@@ -1,3 +1,5 @@
+require 'pg'
+
 class DBConnect
   attr_accessor :connect
   def initialize(db_name)
