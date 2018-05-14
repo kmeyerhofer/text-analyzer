@@ -43,7 +43,7 @@ class DBConnect
   def insert_categories(*categories)
     categories.each do |category|
       sql = <<~SQL
-      INSERT INTO categories (name) VALUES ($1) ON CONFLICT (name) DO NOTHING;
+      INSERT INTO categories (name) VALUES ($1)-- ON CONFLICT (name) DO NOTHING;
       SQL
       connect.exec_params(sql, [category])
     end
