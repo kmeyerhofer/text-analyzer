@@ -46,7 +46,7 @@ class DBConnect
       INSERT INTO categories (name) VALUES ($1)-- ON CONFLICT (name) DO NOTHING;
       SQL
       connect.exec_params(sql, [category])
-    rescue PG::UniqueViolation => e
+    rescue PG::UniqueViolation
       category
     end
   end
