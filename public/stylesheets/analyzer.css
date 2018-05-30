@@ -23,25 +23,31 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -52,6 +58,7 @@ Beginning of CSS Normalization */
 html {
   font-size: 16px;
 }
+
 h1 {
   font-weight: bold;
   font-size: 2rem;
@@ -97,76 +104,101 @@ footer {
 }
 
 /* Project Styling */
+/* Main Page */
 body {
   background-color: #9df;
 }
 
+.grid-container {
+	display: grid;
+	max-width: 1200px;
+	margin: 0 auto;
+	/* align-self: center; */
+	/* grid-gap: 10px 10px; */
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 60px auto 1fr 50px;
+	grid-template-areas:
+		"header header"
+		"input previous-searches"
+		"citation data"
+		"footer footer"
+}
+
+header {
+	grid-area: header;
+	justify-self: center;
+	font-family: sans-serif;
+}
+
+.input {
+	grid-area: input;
+	font-family: sans-serif;
+	border: solid white;
+	border-width: 6px 3px 3px 6px;
+}
+
+.input textarea {
+	width: 80%;
+	justify-self: center;
+}
+
+.previous-searches {
+	grid-area: previous-searches;
+	overflow-wrap: break-word;
+	border: solid white;
+	border-width: 6px 6px 3px 3px;
+}
+
+.citation {
+	grid-area: citation;
+	border: solid white;
+	border-width: 3px 3px 6px 6px;
+}
+
+.data {
+	grid-area: data;
+	border: 6px solid white;
+	border-width: 3px 6px 6px 3px;
+}
+
 footer {
-  text-align: center;
-  padding: 10px;
-}
-
-section {
-  border: 6px solid white;
-}
-
-.container {
-  min-height: 500px;
-  overflow: auto;
-  margin-bottom: 15px;
-}
-
-.container li {
-  margin-left: 14px;
-}
-
-.left-side {
-  position: absolute;
-  left: 20px;
-  width: 50%;
-}
-
-.right-side {
-  position: absolute;
-  text-align: center;
-  right: 13px;
-  width: 45%;
-  height: 500px;
-  overflow-wrap: break-word;
-}
-
-.right-side h3 {
-	text-align: left;
-}
-
-.right-side span {
-	line-height: 1.5;
+	grid-area: footer;
+	justify-self: center;
+	padding: 10px;
 }
 
 .right-side-scroll {
-  height: 440px;
+	/* max-height: 400px; */
   overflow: auto;
-  text-align: left;
+	line-height: 1.5;
+  /* text-align: left; */
+}
+.recent-entries {
+	color: #fff;
 }
 
+/*
 .clear {
   position: absolute;
   top: 9px;
   right: 9px;
 }
 
-.bottom-data {
+.bottom-data {				Gone
   padding: 10px;
 }
 
-.bottom-data ul {
+.bottom-data ul { 		Gone
   margin: 0 0 10px 45px;
 }
 
-.bottom-data p {
+.bottom-data p { 			Gone
   margin-left: 20px;
 }
 
+*/
+
+/* Results Page */
 .analysis-result {
   padding: 10px;
   margin-bottom: 20px;
@@ -180,11 +212,11 @@ section {
   margin-top: 15px;
 }
 
-.random {
+/* .random {
   position: relative;
   bottom: 30px;
   left: 218px;
-}
+} */
 
 .flash-message {
   padding: 15px;
@@ -220,10 +252,6 @@ section {
   background-color: #00b300;
 	padding: 3px;
   border-radius: 3px;
-}
-
-.recent-entries {
-  color: #fff;
 }
 
 .source {

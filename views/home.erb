@@ -1,87 +1,90 @@
-<section class="container">
-  <div class="left-side">
-    <h1>Naive Bayes Text Analyzer</h1>
-    <p>
-      Your text input is processed against a lexicon containing positive and
-      negative opinion words and <em>Rotten Tomatoes</em> movie reviews.
-    </p>
-    <p>
-      The Text Analyzer will classify your input text as either
-      positive or negative.
-    </p>
+<section class="grid-container">
+    <header>
+      <h1>Text Analyzer</h1>
+    </header>
 
-    <form method="post" action="<%= url '/result' %>">
-      <label for="text_input">
-        <h3>Enter text to analyze:</h3>
+    <div class="input">
+      <label for="text_to_analyze">
+        <h3>Input text to analyze:</h3>
       </label>
-      <div>
-        <textarea name="text_to_analyze" rows="11" cols="55"></textarea>
-      </div>
-      <input type="submit" value="Analyze">
-    </form>
-
-    <form class="random" action="<%= url '/random' %>" method="post">
-      <input type="submit" value="Try a Random Phrase">
-    </form>
-  </div>
-
-  <div class="right-side">
-    <% if session[:input].count >= 1 %>
-      <h3>Your most recent entries:</h3>
-      <form method="post" action="<%= url '/clear' %>">
-        <button type="submit" class="clear">Clear</button>
+      <form method="post" action="<%= url '/result' %>">
+          <textarea name="text_to_analyze" rows="10" cols="60"
+                    placeholder="Enter text here."></textarea>
+        <input type="submit" value="Analyze">
       </form>
 
-    <ul class="right-side-scroll">
-      <div class="recent-entries">
-        <% session[:input].each do |input| %>
-          <% input.each_pair do |words, result| %>
-            <%= "<li><span class=\"#{result}\">#{words}</span></li>" %>
+      <form class="random" action="<%= url '/random' %>" method="post">
+        <input type="submit" value="Try a Random Phrase">
+      </form>
+    </div>
+
+    <div class="previous-searches">
+      <% if session[:input].count >= 1 %>
+        <h3>Your most recent entries:</h3>
+        <form method="post" action="<%= url '/clear' %>">
+          <button type="submit" class="clear">Clear</button>
+        </form>
+
+      <ul class="right-side-scroll">
+        <div class="recent-entries">
+          <% session[:input].each do |input| %>
+            <% input.each_pair do |words, result| %>
+              <%= "<li><span class=\"#{result}\">#{words}</span></li>" %>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
+      </ul>
+      <% end %>
+    </div>
+
+    <div class="citation">
+      <h4>The data used in this project came from:</h4>
+      <ul>
+        <li>
+          <a href="http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">
+          http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html</a>
+        </li>
+        <li>
+          <a href="http://www.cs.cornell.edu/people/pabo/movie-review-data">
+          http://www.cs.cornell.edu/people/pabo/movie-review-data</a>
+        </li>
+      </ul>
+
+      <h4>Citations:</h4>
+      <ul>
+        <li>
+          Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews."
+          Proceedings of the ACM SIGKDD International Conference on Knowledge
+          Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, Washington, USA
+        </li>
+        <li>
+          Bo Pang and Lillian Lee, "Seeing stars: Exploiting class relationships for sentiment categorization
+          with respect to rating scales.", Proceedings of the ACL, 2005.
+        </li>
+      </ul>
+    </div>
+
+    <div class="data">
+      <p>
+        Your text input is processed against a local lexicon containing positive
+        and negative opinion words and <em>Rotten Tomatoes</em> movie reviews.
+      </p>
+      <p>
+        The Text Analyzer will classify your input text as either
+        positive or negative.
+      </p>
+      <h4>Data retention information</h4>
+        <p>
+          Your text entered for analysis is saved for project improvement.
+          This data will not be sold or shared.
+        </p>
+
       </div>
-    </ul>
-    <% end %>
-  </div>
+
+
+
+  <footer>
+    By Kurt Meyerhofer for
+    <a href="https://launchschool.com">Launch School</a>
+  </footer>
 </section>
-
-<section class="bottom-data">
-  <h4>The data used in this project came from:</h4>
-  <ul>
-    <li>
-      <a href="http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html">
-      http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html</a>
-    </li>
-    <li>
-      <a href="http://www.cs.cornell.edu/people/pabo/movie-review-data">
-      http://www.cs.cornell.edu/people/pabo/movie-review-data</a>
-    </li>
-  </ul>
-
-  <h4>Citations:</h4>
-  <ul>
-    <li>
-      Minqing Hu and Bing Liu. "Mining and Summarizing Customer Reviews."
-      Proceedings of the ACM SIGKDD International Conference on Knowledge
-      Discovery and Data Mining (KDD-2004), Aug 22-25, 2004, Seattle, Washington, USA
-    </li>
-    <li>
-      Bo Pang and Lillian Lee, "Seeing stars: Exploiting class relationships for sentiment categorization
-      with respect to rating scales.", Proceedings of the ACL, 2005.
-    </li>
-  </ul>
-
-  <h4>Data retention information</h4>
-    <p>
-      Your text entered for analysis is saved for project improvement.
-      The information saved are text input, analysis result and timestamp
-      of submission. This data will not be sold or shared.
-    </p>
-
-</section>
-
-
-<footer>
-  By Kurt Meyerhofer for
-  <a href="https://launchschool.com">Launch School</a>
-</footer>
