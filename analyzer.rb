@@ -5,10 +5,12 @@ require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
 require_relative './lib/dbconnect'
 
+
+require 'pry'
 configure do
   enable :sessions
   set :session_secret, ENV["SESSION_SECRET"]
-  disable :show_exceptions
+  # disable :show_exceptions
 end
 
 before do
@@ -17,6 +19,7 @@ before do
   elsif session[:input].count > 5
     session[:input].delete_at(-1)
   end
+  @lexicon = Lexicon.new(db_name)
 end
 
 helpers do
@@ -28,17 +31,23 @@ helpers do
     Rack::Utils.escape_html(text)
   end
 
-  def analyze(text)
-    Lexicon.new(db_name).analyze(text)
-  end
+  # def analyze(text)
+  #   Lexicon.new(db_name).analyze(text)
+  # end
 
   def css(result)
-    result == 'positive' ? result : 'negative'
+    max_value = result.values.max
+    max_result = result.key(max_value)
+    max_result == 'positive' ? max_result : 'negative'
   end
 
   def save_user_entry(text, result)
     db = DBConnect.new(db_name)
     db.user_entry(text, result)
+  end
+
+  def convert_to_percent(value)
+    format("%.3f", (value * 100))
   end
 end
 
@@ -49,17 +58,25 @@ end
 post '/result' do
   @cleaned_up_text = clean_text(params[:text_to_analyze].to_s.strip)
   if @cleaned_up_text.size == 0
-    session[:flash_message] = "Please input text."
+    session[:flash_message] = 'Please input text.'
     redirect to '/'
+
   elsif params[:text_to_analyze].size >= 750
-    session[:flash_message] = "Please input less than 750 characters."
+    session[:flash_message] = 'Please input less than 750 characters.'
     redirect to '/'
-  else
-    @result = analyze(@cleaned_up_text)
+
+  elsif params[:analysis_type] == 'all_text'
+    @result = @lexicon.raw_data(@cleaned_up_text)
     @cssresult = css(@result)
-    session[:input].unshift(@cleaned_up_text => @cssresult)
+    @positive_percent = convert_to_percent(@result['positive']) + "%"
+    @negative_percent = convert_to_percent(@result['negative']) + "%"
+    session[:input].unshift(@cleaned_up_text =>
+      [@cssresult, @positive_percent, @negative_percent])
     save_user_entry(params[:text_to_analyze], @cssresult)
     erb :result
+
+  elsif params[:analysis_type] == 'punctuation'
+    @result = @lexicon.raw_data(@cleaned_up_text)
   end
 end
 

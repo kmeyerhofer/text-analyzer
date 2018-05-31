@@ -4,7 +4,10 @@
     has been analyzed and found to have more
   </p>
   <span class="result">
-    <span class="<%= @cssresult %>"><%= @result.capitalize %> Sentiment</span>
+    <span class="<%= @cssresult %>"
+      title="<%= @positive_percent %> positive, <%= @negative_percent %> negative">
+      <%= @cssresult.capitalize %> Sentiment
+    </span>
   </span>
 
   <form method="get" action="<%= url '/' %>">

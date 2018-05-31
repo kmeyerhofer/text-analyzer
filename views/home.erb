@@ -5,12 +5,19 @@
 
     <div class="input">
       <label for="text_to_analyze">
-        <h3>Input text to analyze:</h3>
+        Input text to analyze:
       </label>
       <form method="post" action="<%= url '/result' %>">
-          <textarea name="text_to_analyze" rows="10" cols="60"
+          <textarea name="text_to_analyze" id="text_to_analyze"
+                    rows="10" cols="60"
                     placeholder="Enter text here."></textarea>
         <input type="submit" value="Analyze">
+        <input type="radio" name="analysis_type" value="all_text"
+               id="text" checked>
+        <label for="text">All input text</label>
+        <input type="radio" name="analysis_type" value="punctuation_delimiter"
+               id="punctuation">
+        <label for="punctuation">Punctuation</label>
       </form>
 
       <form class="random" action="<%= url '/random' %>" method="post">
@@ -29,7 +36,7 @@
         <div class="recent-entries">
           <% session[:input].each do |input| %>
             <% input.each_pair do |words, result| %>
-              <%= "<li><span class=\"#{result}\">#{words}</span></li>" %>
+              <%= "<li><span class=\"#{result[0]}\" title=\"#{result[1]} positive, #{result[2]} negative\">#{words}</span></li>" %>
             <% end %>
           <% end %>
         </div>
