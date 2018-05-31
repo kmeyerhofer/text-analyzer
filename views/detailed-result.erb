@@ -1,0 +1,23 @@
+<!--MULTI-SENTENCE RESULTS-->
+
+
+<section class="analysis-result">
+
+  <p>
+    has been analyzed and found to have more
+  </p>
+
+  <ul>
+    <% @separated_results.each do |phrase| %>
+      <li><%= "#{phrase}" %></li>
+    <% end %>
+  </ul>
+  <span class="result">
+
+  </span>
+
+  <form method="get" action="<%= url '/' %>">
+    <button type="submit" class="goback">Back</button>
+  </form>
+
+</section>
