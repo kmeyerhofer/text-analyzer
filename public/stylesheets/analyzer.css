@@ -164,6 +164,16 @@ footer {
   left: 218px;
 } */
 
+.detailed-result ul {
+	list-style: none;
+	display: inline-block;
+}
+
+.detailed-result ul li {
+	display: inline-block;
+	margin: 0;
+}
+
 .flash-message {
   padding: 15px;
   background-color: #ca0000;

@@ -11,7 +11,7 @@
           <textarea name="text_to_analyze" id="text_to_analyze"
                     rows="10" cols="60"
                     placeholder="Enter text here."></textarea>
-        <input type="submit" value="Analyze">
+                    
         <input type="radio" name="analysis_type" value="all_text"
                id="text" checked>
         <label for="text">All input text</label>
@@ -21,9 +21,10 @@
         <input type="radio" name="analysis_type" value="new_line"
                id="new_line">
         <label for="new_line">New Line</label>
+        <input type="submit" value="Analyze">
       </form>
 
-      <form class="random" action="<%= url '/random' %>" method="post">
+      <form class="random" action="<%= url '/random' %>" method="get">
         <input type="submit" value="Try a Random Phrase">
       </form>
     </div>

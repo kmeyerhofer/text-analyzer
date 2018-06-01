@@ -29,7 +29,8 @@ helpers do
   end
 
   def clean_text(text)
-    Rack::Utils.escape_html(text)
+    Rack::Utils.escape_html(text).gsub(/\r/, '')
+
   end
 
   def css(result)
@@ -43,8 +44,8 @@ helpers do
     db.user_entry(text, result)
   end
 
-  def format_percent(value)
-    format("%.3f", (value * 100))
+  def format_percent(results)
+    results.map {|num| format("%.3f", (num * 100)) + '%'}
   end
 end
 
@@ -64,42 +65,45 @@ post '/result' do
     redirect to '/'
 
   elsif params[:analysis_type] == 'all_text'
+    # binding.pry
     @result = @lexicon.raw_data(@cleaned_up_text)
     @cssresult = css(@result)
-    @positive_percent = "#{format_percent(@result['positive'])}%"
-    @negative_percent = "#{format_percent(@result['negative'])}%"
+    @postive_percent, @negative_percent = format_percent(@result.values)
     session[:input].unshift(@cleaned_up_text =>
       [@cssresult, @positive_percent, @negative_percent])
     save_user_entry(params[:text_to_analyze], @cssresult)
     erb :result
 
   elsif params[:analysis_type] == 'punctuation_delimiter'
-    @result = @lexicon.raw_data(@cleaned_up_text)
-    @punctuation_separated_text = @cleaned_up_text.split(/,|\.|!|\?|"|'|;|:/)
+    # @result = @lexicon.raw_data(@cleaned_up_text)
+    @punctuation_separated_text = @cleaned_up_text.split(/(?<=[?.!,])/)
     @separated_results = {}
-    # binding.pry
     @punctuation_separated_text.each do |phrase|
-      @separated_results[phrase] = @lexicon.raw_data(phrase)
+      results = @lexicon.raw_data(phrase)
+      @separated_results[phrase] = format_percent(results.values) << css(results)
     end
     erb :'detailed-result'
 
   elsif params[:analysis_type] == 'new_line'
-    @result = @lexicon.raw_data(@cleaned_up_text)
+    # @result = @lexicon.raw_data(@cleaned_up_text)
     @new_line_separated_text = @cleaned_up_text.split(/\n/)
     @separated_results = {}
     @new_line_separated_text.each do |phrase|
-      @separated_results[phrase] = @lexicon.raw_data(phrase)
+      results = @lexicon.raw_data(phrase)
+      @separated_results[phrase] = format_percent(results.values) << (css(results))
     end
+    # binding.pry
     erb :'detailed-result'
   end
 end
 
-post '/random' do
+get '/random' do
   random_result = RandomSentence.new
   @cleaned_up_text = random_result.selection
   @text_source = random_result.source
-  @result = analyze(@cleaned_up_text)
+  @result = @lexicon.raw_data(@cleaned_up_text)
   @cssresult = css(@result)
+  @postive_percent, @negative_percent = format_percent(@result.values)
   erb :result
 end
 
