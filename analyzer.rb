@@ -47,6 +47,20 @@ helpers do
   def format_percent(results)
     results.map {|num| format("%.3f", (num * 100)) + '%'}
   end
+
+  def format_single_line_results(results_hash)
+
+  end
+
+  def format_list_item_string(results_hash)
+    array = []
+    results_hash.each_pair do |phrase, data|
+      array << "<span class=\"#{data[2]}\" title=\"#{data[0]} positive, #{data[1]} negative\">#{phrase}</span>"
+    end
+    array.unshift("<li>")
+    array.push("</li>")
+    array.join('')
+  end
 end
 
 get '/' do
@@ -68,9 +82,10 @@ post '/result' do
     # binding.pry
     @result = @lexicon.raw_data(@cleaned_up_text)
     @cssresult = css(@result)
-    @postive_percent, @negative_percent = format_percent(@result.values)
-    session[:input].unshift(@cleaned_up_text =>
-      [@cssresult, @positive_percent, @negative_percent])
+    @positive_percent, @negative_percent = format_percent(@result.values)
+    # binding.pry
+    session[:input].unshift(format_list_item_string(@cleaned_up_text =>
+      [@positive_percent, @negative_percent, @cssresult]))
     save_user_entry(params[:text_to_analyze], @cssresult)
     erb :result
 
@@ -82,6 +97,7 @@ post '/result' do
       results = @lexicon.raw_data(phrase)
       @separated_results[phrase] = format_percent(results.values) << css(results)
     end
+    session[:input].unshift(format_list_item_string(@separated_results))
     erb :'detailed-result'
 
   elsif params[:analysis_type] == 'new_line'
@@ -92,6 +108,7 @@ post '/result' do
       results = @lexicon.raw_data(phrase)
       @separated_results[phrase] = format_percent(results.values) << (css(results))
     end
+    session[:input].unshift(format_list_item_string(@separated_results))
     # binding.pry
     erb :'detailed-result'
   end

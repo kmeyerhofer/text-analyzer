@@ -11,7 +11,7 @@
           <textarea name="text_to_analyze" id="text_to_analyze"
                     rows="10" cols="60"
                     placeholder="Enter text here."></textarea>
-                    
+
         <input type="radio" name="analysis_type" value="all_text"
                id="text" checked>
         <label for="text">All input text</label>
@@ -39,9 +39,7 @@
       <ul class="right-side-scroll">
         <div class="recent-entries">
           <% session[:input].each do |input| %>
-            <% input.each_pair do |words, result| %>
-              <%= "<li><span class=\"#{result[0]}\" title=\"#{result[1]} positive, #{result[2]} negative\">#{words}</span></li>" %>
-            <% end %>
+            <%= input %>
           <% end %>
         </div>
       </ul>

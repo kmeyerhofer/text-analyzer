@@ -1,7 +1,7 @@
 @import url("reset.css");
 
 html {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 h1 {
@@ -148,6 +148,7 @@ footer {
 .analysis-result {
   padding: 10px;
   margin-bottom: 20px;
+	max-width: 100%;
 }
 
 .analysis-result p {
@@ -212,4 +213,72 @@ footer {
 
 .source {
   margin: 15px 0 0 0;
+}
+
+/* Popup */
+
+div.popup {
+	display: none;
+	margin: 0;
+	padding: 0;
+}
+
+.detailed-result li:hover + .popup,
+.detailed-result li:focus + .popup {
+	position: absolute;
+	display: inline;
+	bottom: 34px;
+	left: 0px;
+	color: #fff;
+	font-size: 20px;
+	padding: 8px;
+	background: #fff;
+}
+
+
+.popup span {
+	border: 2px solid black;
+	padding: 8px;
+	display: inline-block;
+	margin: 0;
+}
+
+.popup-positive {
+	background: #00b300;
+	border-right: 1px solid black;
+}
+
+.popup-negative {
+	background: #b30000;
+	border-left: 1px solid black;
+}
+
+.relative-parent {
+	position: relative;
+	display: block;
+	white-space: nowrap;
+	margin: 10px;
+}
+
+/* Triangle in Hover */
+.popup::after {
+	content: "";
+	position: absolute;
+	bottom: -8px;
+	left: -0px;
+	width: 0;
+	height: 0;
+	border-right: 8px solid transparent;
+	border-top: 8px solid #fff;
+	border-left: 8px solid transparent;
+}
+
+.detailed-result ul {
+	word-break: break-all;
+}
+
+.detailed-result li {
+	color: #fff;
+	padding: 5px;
+	margin: 5px;
 }
