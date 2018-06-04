@@ -1,21 +1,21 @@
 <section class="analysis-result">
-  <span class="usertext"><%= @cleaned_up_text %></span>
+  <span class="usertext"><%= @view_data[:cleaned_up_text] %></span>
   <p>
     has been analyzed and found to have more
   </p>
   <span class="result">
-    <span class="<%= @cssresult %>"
-      title="<%= @positive_percent %> positive, <%= @negative_percent %> negative">
-      <%= @cssresult.capitalize %> Sentiment
+    <span class="<%= @view_data[:css_result] %>"
+      title="<%= @view_data[:positive_percent] %> positive, <%= @view_data[:negative_percent] %> negative">
+      <%= @view_data[:css_result].capitalize %> Sentiment
     </span>
   </span>
 
   <form method="get" action="<%= url '/' %>">
     <button type="submit" class="goback">Back</button>
   </form>
-  <% if @text_source %>
+  <% if @view_data[:text_source] %>
   <div class="source">
-    <%= ('Text source: ' + @text_source) %>
+    <%= ('Text source: ' + @view_data[:text_source]) %>
   </div>
   <% end %>
 </section>
