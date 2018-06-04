@@ -5,13 +5,14 @@ require 'tilt/erubis'
 require_relative './lib/random_sentence'
 # require_relative './lib/dbconnect'
 require_relative './lib/input_analysis'
+require_relative './lib/multi_line_input_analysis'
 
 
 require 'pry'
 configure do
   enable :sessions
   set :session_secret, ENV["SESSION_SECRET"]
-  # disable :show_exceptions
+  disable :show_exceptions
 end
 
 before do
@@ -20,47 +21,12 @@ before do
   elsif session[:input].count > 5
     session[:input].delete_at(-1)
   end
-
-  # @lexicon = Lexicon.new(db_name)
 end
 
 helpers do
-  # def db_name
-  #   ENV["DATABASE_NAME"]
-  # end
-
   def clean_text(text)
     Rack::Utils.escape_html(text).gsub(/\r/, '')
   end
-
-  # def css(result)
-  #   max_value = result.values.max
-  #   max_result = result.key(max_value)
-  #   max_result == 'positive' ? max_result : 'negative'
-  # end
-
-  # def save_user_entry(text, result)
-  #   db = DBConnect.new(db_name)
-  #   db.user_entry(text, result)
-  # end
-  #
-  # def format_percent(results)
-  #   results.map {|num| format("%.3f", (num * 100)) + '%'}
-  # end
-  #
-  # def format_single_line_results(results_hash)
-  #
-  # end
-  #
-  # def format_list_item_string(results_hash)
-  #   array = []
-  #   results_hash.each_pair do |phrase, data|
-  #     array << "<span class=\"#{data[2]}\" title=\"#{data[0]} positive, #{data[1]} negative\">#{phrase}</span>"
-  #   end
-  #   array.unshift("<li>")
-  #   array.push("</li>")
-  #   array.join('')
-  # end
 end
 
 get '/' do
@@ -68,9 +34,8 @@ get '/' do
 end
 
 post '/result' do
-  text_to_analyze_length = params[:text_to_analyze].size
-  @cleaned_up_text = clean_text(params[:text_to_analyze].to_s.strip)
-  input = InputAnalysis.new(@cleaned_up_text) # remove the instance variable?
+  cleaned_up_text = clean_text(params[:text_to_analyze].to_s.strip)
+  text_to_analyze_length = cleaned_up_text.size
 
   if text_to_analyze_length == 0
     session[:flash_message] = 'Please input text.'
@@ -81,44 +46,32 @@ post '/result' do
     redirect to '/'
 
   elsif params[:analysis_type] == 'all_text'
+    input = InputAnalysis.new(cleaned_up_text)
     @view_data = input.view_elements
     session[:input].unshift(input.session_elements)
+    input.save_user_entry
     erb :result
 
   elsif params[:analysis_type] == 'punctuation_delimiter'
-    # @result = @lexicon.raw_data(@cleaned_up_text)
-    punctuation_separated_text = @cleaned_up_text.split(/(?<=[?.!,])/)
-    @separated_results = {}
-    punctuation_separated_text.each do |phrase|
-      results = @lexicon.raw_data(phrase)
-      @separated_results[phrase] = format_percent(results.values) << css(results)
-    end
-    session[:input].unshift(format_list_item_string(@separated_results))
+    punctuation_separated_text = cleaned_up_text.split(/(?<=[?.!,])/)
+    input = MultiLineInputAnalysis.new(punctuation_separated_text)
+    @popup_results = input.popup_list_item_strings
+    session[:input].unshift(input.list_item_strings.join(''))
     erb :'detailed-result'
 
   elsif params[:analysis_type] == 'new_line'
-    # @result = @lexicon.raw_data(@cleaned_up_text)
-    new_line_separated_text = @cleaned_up_text.split(/\n/)
-    @separated_results = {}
-    new_line_separated_text.each do |phrase|
-      results = @lexicon.raw_data(phrase)
-      @separated_results[phrase] = format_percent(results.values) << (css(results))
-    end
-    session[:input].unshift(format_list_item_string(@separated_results))
-    # binding.pry
+    new_line_separated_text = cleaned_up_text.split(/\n/)
+    input = MultiLineInputAnalysis.new(new_line_separated_text)
+    @popup_results = input.popup_list_item_strings
+    session[:input].unshift(input.list_item_strings.join(''))
     erb :'detailed-result'
   end
 end
 
 get '/random' do
   random_result = RandomSentence.new
-  input = InputAnalysis.new(random_result, random_result.source)
-
-  @cleaned_up_text = random_result.selection
-  @text_source = random_result.source
-  @result = @lexicon.raw_data(@cleaned_up_text)
-  @cssresult = css(@result)
-  @postive_percent, @negative_percent = format_percent(@result.values)
+  input = InputAnalysis.new(random_result.selection, random_result.source)
+  @view_data = input.view_elements
   erb :result
 end
 

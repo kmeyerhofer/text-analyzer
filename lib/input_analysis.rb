@@ -14,14 +14,17 @@ class InputAnalysis
     @background_css_class = css_class
   end
 
-  def save_user_entry(text)
+  def save_user_entry
     db = DBConnect.new(db_name)
-    db.user_entry(text, background_css_class)
+    db.user_entry(cleaned_text, background_css_class)
   end
 
   def session_elements
-    format_list_item_string(cleaned_text =>
-      [positive_percent, negative_percent, background_css_class])
+    format_list_item_string(results_hash)
+  end
+
+  def results_hash
+    {cleaned_text => [positive_percent, negative_percent, background_css_class]}
   end
 
   def view_elements
@@ -37,6 +40,16 @@ class InputAnalysis
 
   private
 
+  def format_list_item_string(results_hash)
+    array = []
+    results_hash.each_pair do |phrase, data|
+      array << "<span class=\"#{data[2]}\" title=\"#{data[0]} positive, #{data[1]} negative\">#{phrase}</span>"
+    end
+    array.unshift("<li>")
+    array.push("</li>")
+    array.join('')
+  end
+
   def text_analysis
     lexicon.raw_data(cleaned_text)
   end
@@ -49,16 +62,6 @@ class InputAnalysis
 
   def format_percent
     analysis_result.values.map { |num| format("%.3f", (num * 100)) + '%' }
-  end
-
-  def format_list_item_string(results_hash)
-    array = []
-    results_hash.each_pair do |phrase, data|
-      array << "<span class=\"#{data[2]}\" title=\"#{data[0]} positive, #{data[1]} negative\">#{phrase}</span>"
-    end
-    array.unshift("<li>")
-    array.push("</li>")
-    array.join('')
   end
 
   def db_name

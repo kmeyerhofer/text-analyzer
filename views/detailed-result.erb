@@ -4,16 +4,8 @@
 
 <section class="analysis-result detailed-result">
   <ul>
-    <% @separated_results.each_pair do |phrase, data| %>
-      <%= "<div class=\"relative-parent\">
-           <li class=\"#{data[2]}\"
-               title=\"#{data[0]} positive, #{data[1]} negative\">
-               #{phrase}</li>
-             <div class=\"popup\">
-               <span class=\"popup-positive\">#{data[0]}</span><!--
-             --><span class=\"popup-negative\">#{data[1]}</span>
-              </div>
-            </div>" %>
+    <% @popup_results.each do |result| %>
+      <%= result %>
     <% end %>
   </ul>
   <span class="result">
