@@ -53,18 +53,19 @@ class AnalyzeTest < Minitest::Test
     get '/'
     assert_equal 200, last_response.status
     assert_equal 'text/html;charset=utf-8', last_response['Content-Type']
-    assert_includes last_response.body, "Enter text to analyze"
+    assert_includes last_response.body, "Input text to analyze"
   end
 
   def test_text_analyze_negative
-    post '/result', text_to_analyze: @phrase = 'testing this text'
+    post '/result', text_to_analyze: @phrase = 'testing this text',
+      analysis_type: 'all_text'
     assert_equal 200, last_response.status
     assert_includes last_response.body, 'testing this text'
     assert_includes last_response.body, "Negative"
   end
 
   def test_text_analyze_positive
-    post '/result', text_to_analyze: @phrase = 'testing'
+    post '/result', text_to_analyze: 'testing', analysis_type: 'all_text'
     assert_equal 200, last_response.status
     assert_includes last_response.body, 'testing'
     assert_includes last_response.body, "Positive"
@@ -90,13 +91,13 @@ class AnalyzeTest < Minitest::Test
   end
 
   def test_successful_random_page
-    post '/random'
+    get '/random'
     assert_equal 200, last_response.status
   end
 
   def test_recent_entries_with_result_class_negative
     @phrase = 'wheat' # negative
-    post '/result', text_to_analyze: @phrase
+    post '/result', text_to_analyze: @phrase, analysis_type: 'all_text'
     assert_includes last_response.body, 'Negative'
     get '/'
     assert_includes last_response.body, @phrase
@@ -105,7 +106,7 @@ class AnalyzeTest < Minitest::Test
 
   def test_clear_recent_entries_with_result_negative
     @phrase = 'you missed it!' # negative
-    post '/result', text_to_analyze: @phrase
+    post '/result', text_to_analyze: @phrase, analysis_type: 'all_text'
     assert_includes last_response.body, 'Negative'
     get '/'
     assert_includes last_response.body, @phrase
