@@ -8,6 +8,9 @@ require_relative './lib/input_analysis'
 require_relative './lib/multi_line_input_analysis'
 
 
+# require_relative '../nbayes-fork/lib/nbayes'
+
+
 require 'pry'
 configure do
   enable :sessions
