@@ -3,12 +3,18 @@ require 'minitest/autorun'
 require 'rack/test'
 require 'pg'
 require_relative '../analyzer'
+require_relative '../lib/dbconnect'
+
 
 class AnalyzeTest < Minitest::Test
   include Rack::Test::Methods
 
   def db_name
     ENV["DATABASE_NAME"]
+  end
+
+  def db_connect
+    DBConnect.new
   end
 
   def connection
@@ -116,17 +122,17 @@ class AnalyzeTest < Minitest::Test
   end
 
   def test_database_categories
-    assert_equal ['positive', 'negative'], Lexicon.new(db_name).words.data.data.keys
+    assert_equal ['positive', 'negative'], db_connect.categories
   end
 
   def test_database_token_count
     db_tokens = connection.exec(
       'SELECT count(DISTINCT phrase) FROM tokens')[0]['count']
-    assert_equal db_tokens.to_i, Lexicon.new(db_name).words.vocab.tokens.count
+    assert_equal db_tokens.to_i, db_connect.distinct_token_count
   end
 
   def test_database_category_count
     db_categories = connection.exec('SELECT count(*) FROM categories')[0]['count']
-    assert_equal db_categories.to_i, Lexicon.new(db_name).words.data.data.keys.count
+    assert_equal db_categories.to_i, db_connect.category_count
   end
 end

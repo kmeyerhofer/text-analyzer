@@ -3,16 +3,14 @@ require 'nbayes'
 class Lexicon
   attr_reader :words
 
-  def initialize(db_name)
-    #assume_uniform makes analysis compute as if the categories were equal sizes
-    @words = NBayes::Base.new(db_name, assume_uniform:false)
-  end
+  #assume_uniform makes analysis compute as if the categories were equal sizes
+  @@words = NBayes::Base.new(assume_uniform: false)
 
   def analyze(phrase)
-    words.classify(phrase.split(/\s+/)).max_class
+    @@words.classify(phrase.split(/\s+/)).max_class
   end
 
   def raw_data(phrase)
-    words.classify(phrase.split(/\s+/))
+    @@words.classify(phrase.split(/\s+/))
   end
 end

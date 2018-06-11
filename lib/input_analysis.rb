@@ -7,7 +7,7 @@ class InputAnalysis
 
   def initialize(cleaned_text, text_source = nil)
     @cleaned_text = cleaned_text
-    @lexicon = Lexicon.new(db_name)
+    @lexicon = Lexicon.new
     @random_text_source = text_source
     @analysis_result = text_analysis
     @positive_percent, @negative_percent = format_percent
@@ -15,7 +15,7 @@ class InputAnalysis
   end
 
   def save_user_entry
-    db = DBConnect.new(db_name)
+    db = DBConnect.new
     db.user_entry(cleaned_text, background_css_class)
   end
 
