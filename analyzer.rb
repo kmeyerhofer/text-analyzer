@@ -1,9 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'tilt/erubis'
-# require_relative './lib/lexicon'
 require_relative './lib/random_sentence'
-# require_relative './lib/dbconnect'
 require_relative './lib/input_analysis'
 require_relative './lib/multi_line_input_analysis'
 
@@ -30,6 +28,14 @@ helpers do
   def clean_text(text)
     Rack::Utils.escape_html(text).gsub(/\r/, '')
   end
+
+  def separate_by(cleaned_text, param)
+    if param == 'new_line'
+      cleaned_text.split(/\n/)
+    else
+      cleaned_text.split(/(?<=[?.!,])/)
+    end
+  end
 end
 
 get '/' do
@@ -37,8 +43,8 @@ get '/' do
 end
 
 post '/result' do
-  cleaned_up_text = clean_text(params[:text_to_analyze].to_s.strip)
-  text_to_analyze_length = cleaned_up_text.size
+  cleaned_text = clean_text(params[:text_to_analyze].to_s.strip)
+  text_to_analyze_length = cleaned_text.size
 
   if text_to_analyze_length == 0
     session[:flash_message] = 'Please input text.'
@@ -49,22 +55,14 @@ post '/result' do
     redirect to '/'
 
   elsif params[:analysis_type] == 'all_text'
-    input = InputAnalysis.new(cleaned_up_text)
+    input = InputAnalysis.new(cleaned_text)
     @view_data = input.view_elements
     session[:input].unshift(input.session_elements)
-    input.save_user_entry
     erb :result
 
-  elsif params[:analysis_type] == 'punctuation_delimiter'
-    punctuation_separated_text = cleaned_up_text.split(/(?<=[?.!,])/)
-    input = MultiLineInputAnalysis.new(punctuation_separated_text)
-    @popup_results = input.popup_list_item_strings
-    session[:input].unshift(input.list_item_strings.join(''))
-    erb :'detailed-result'
-
-  elsif params[:analysis_type] == 'new_line'
-    new_line_separated_text = cleaned_up_text.split(/\n/)
-    input = MultiLineInputAnalysis.new(new_line_separated_text)
+  else
+    separated_text = separate_by(cleaned_text, params[:analysis_type])
+    input = MultiLineInputAnalysis.new(separated_text)
     @popup_results = input.popup_list_item_strings
     session[:input].unshift(input.list_item_strings.join(''))
     erb :'detailed-result'
