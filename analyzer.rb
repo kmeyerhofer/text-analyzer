@@ -83,6 +83,18 @@ post '/clear' do
   redirect to '/'
 end
 
+get '/learn-more' do
+  erb :'learn-more', :layout => :'extra-info'
+end
+
+get '/citations' do
+  erb :citations, :layout => :'extra-info'
+end
+
+get '/privacy-policy' do
+  erb :'privacy-policy', :layout => :'extra-info'
+end
+
 not_found do
   session[:flash_message] = 'Page not found.'
   redirect to '/'
