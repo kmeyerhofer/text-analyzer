@@ -3,11 +3,14 @@
 <head>
   <meta charset="utf-8">
   <title>Text Analyzer</title>
-  <link rel="stylesheet" href="<%= url 'stylesheets/analyzer.css' %>">
+  <link rel="stylesheet" href="<%= url 'stylesheets/main.css' %>">
 </head>
 <body>
   <% if session[:flash_message] %>
-    <p class="flash-message"><%= session.delete(:flash_message) %></p>
+  <input type="checkbox" id="flash-checkbox" class="flash-checkbox">
+    <label class="flash-message" for="flash-checkbox">
+      <%= session.delete(:flash_message) %>
+    </label>
   <% end %>
   <%= yield %>
 </body>
