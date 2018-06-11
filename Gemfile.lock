@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/kmeyerhofer/nbayes
-  revision: 5aab85c1467096a78615759fc63228334ad8da6f
+  revision: 063f778d0203fa4b030c9763ab6965d9792d5033
   specs:
     nbayes (0.1.2)
 

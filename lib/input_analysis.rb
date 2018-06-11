@@ -12,11 +12,14 @@ class InputAnalysis
     @analysis_result = text_analysis
     @positive_percent, @negative_percent = format_percent
     @background_css_class = css_class
+    save_user_entry
   end
 
   def save_user_entry
     db = DBConnect.new
-    db.user_entry(cleaned_text, background_css_class)
+    db.user_entry(
+      cleaned_text, background_css_class, positive_percent, negative_percent
+    )
   end
 
   def session_elements

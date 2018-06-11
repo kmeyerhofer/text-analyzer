@@ -18,12 +18,12 @@ class DBConnect
     @@connect.exec(sql).values[0][0].to_i
   end
 
-  def user_entry(text, result)
+  def user_entry(text, result, pos_percent, neg_percent)
     sql = <<~SQL
-    INSERT INTO user_entries (phrase, category_id) VALUES
-    ($1, (SELECT id FROM categories WHERE name = $2));
+    INSERT INTO user_entries (phrase, category_id, positive_percent, negative_percent) VALUES
+    ($1, (SELECT id FROM categories WHERE name = $2), $3, $4);
     SQL
-    @@connect.exec_params(sql, [text, result])
+    @@connect.exec_params(sql, [text, result, pos_percent, neg_percent])
   end
 
   def distinct_token_count
