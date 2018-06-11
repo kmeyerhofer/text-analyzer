@@ -11,13 +11,7 @@ body {
   padding: 10px;
 }
 
-h1 {
-  font-size: 2.75rem;
-  text-align: center;
-  color: #4a4949;
-  font-weight: bold;
-}
-
+/* Main page grid */
 .grid-container {
   display: grid;
   grid-row-gap: 25px;
@@ -29,6 +23,13 @@ h1 {
     "previous-searches"
     "extra-info"
     "footer"
+}
+
+h1 {
+  font-size: 2.75rem;
+  text-align: center;
+  color: #4a4949;
+  font-weight: bold;
 }
 
 .flash-message {
@@ -67,6 +68,7 @@ header {
   width: 100%;
 }
 
+/* Input text for analysis area */
 .input {
   grid-area: input;
 }
@@ -148,6 +150,7 @@ input[type="submit"]:hover {
   display: block;
 }
 
+/* Previous search area */
 .previous-searches {
   margin: 0;
   padding: 0;
@@ -187,6 +190,7 @@ input[type="submit"]:hover {
   background: #ff6571;
 }
 
+/* Bottom links & hover */
 .extra-info {
   padding: 0;
   grid-area: extra-info;
@@ -220,6 +224,7 @@ input[type="submit"]:hover {
   margin: 0 auto;
 }
 
+/* Footer */
 footer {
   grid-area: footer;
   margin: 15px 0;
@@ -231,6 +236,7 @@ footer a {
   color: #4a4949;
 }
 
+/* Non-separated analysis results page */
 .analysis-result {
   display: grid;
   grid-row-gap: 25px;
@@ -290,6 +296,7 @@ footer a {
   padding: 5px;
 }
 
+/* Separated analysis results page */
 .detailed-result {
   display: grid;
   grid-row-gap: 25px;
@@ -331,15 +338,11 @@ div.popup {
 .detailed-result li:focus + .popup {
 	position: absolute;
 	display: inline;
-	/* bottom: 34px; */
-  /* top: 10px; */
   bottom: 100%;
   margin-bottom: 4px;
 	left: 0px;
-	/* color: #fff; */
 	font-size: 20px;
 	padding: 8px;
-	/* background: #fff; */
   background: #efefef;
   color: #4d4c4c;
 }
@@ -348,7 +351,6 @@ div.popup {
 .popup-negative {
   border: solid #4d4c4c;
 }
-
 
 .popup span {
 	padding: 8px;
@@ -369,8 +371,6 @@ div.popup {
 .relative-parent {
 	position: relative;
 	display: block;
-	/* white-space: nowrap; */
-	/* margin: 10px; */
 }
 
 /* Triangle in Hover */
