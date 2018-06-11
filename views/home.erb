@@ -1,7 +1,7 @@
 <section class="grid-container">
   <header>
     <h1>Text Analyzer</h1>
-    <div class="red-gradient-ltr"></div>
+    <div class="gradient-ltr"></div>
   </header>
 
   <div class="input">
@@ -32,12 +32,12 @@
     <form id="random" action="<%= url '/random' %>" method="get">
       <input class="random" type="submit" value="Try a Random Phrase" form="random">
     </form>
-    <div class="red-gradient-rtl"></div>
+    <div class="gradient-rtl"></div>
   </div>
 
   <% if session[:input].count >= 1 %>
   <div class="previous-searches">
-      <h3>Your most recent entries</h3>
+      <h2>Your most recent entries</h2>
 
     <ul class="previous-search-scroll">
       <div class="recent-entries">
@@ -49,7 +49,7 @@
     <form method="post" action="<%= url '/clear' %>" id="clear">
       <input type="submit" class="clear" value="Clear Entries" for="clear">
     </form>
-    <div class="red-gradient-ltr"></div>
+    <div class="gradient-ltr"></div>
   </div>
   <% end %>
 

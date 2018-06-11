@@ -53,14 +53,14 @@ header {
   grid-area: header;
 }
 
-.red-gradient-ltr {
+.gradient-ltr {
   margin: 20px auto 0 auto;
   background: linear-gradient(to right, #ff3b3f 15%, transparent);
   height: 4px;
   width: 100%;
 }
 
-.red-gradient-rtl {
+.gradient-rtl {
   margin: 20px auto 0 auto;
   background: linear-gradient(to left, #ff3b3f 15%, transparent);
   height: 4px;
@@ -71,9 +71,9 @@ header {
   grid-area: input;
 }
 
-h3,
+h2,
 .input label:first-child {
-  color: #7d7d7d;
+  color: #4d4c4c;
   background: #b8dee7;
   font-size: 1.25rem;
   padding: 5px;
@@ -90,7 +90,7 @@ textarea {
   padding: 15px;
   border: 3px solid #b8dee7;
   font-size: 1rem;
-  color: #7d7d7d;
+  color: #4d4c4c;
 }
 
 .radio-buttons {
@@ -133,7 +133,7 @@ input[type="submit"]:hover {
 .radio-button-background {
   padding: 5px;
   background: #b8dee7;
-  color: #7d7d7d;
+  color: #4d4c4c;
 }
 
 .analyze {
@@ -162,7 +162,6 @@ input[type="submit"]:hover {
   border: 3px solid #b8dee7;
   box-sizing: border-box;
   padding: 5px;
-  color: #fff;
 }
 
 .recent-entries li {
@@ -175,6 +174,7 @@ input[type="submit"]:hover {
 
 .positive,
 .negative {
+  color: #efefef;
   padding: 3px;
 }
 
@@ -223,9 +223,69 @@ footer {
   grid-area: footer;
   margin: 15px 0;
   text-align: center;
-  color: #7d7d7d;
+  color: #4d4c4c;
 }
 
 footer a {
   color: #4a4949;
+}
+
+.analysis-result {
+  display: grid;
+  padding: 10px;
+  grid-row-gap: 25px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "header"
+    "results"
+    "go-back"
+    "source"
+}
+
+.results {
+  grid-area: results;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.usertext::before {
+  content: '" ';
+}
+
+.usertext::after {
+  content: ' "';
+}
+
+.usertext {
+  color: #4d4c4c;
+  background: #fff;
+  border: 3px solid #b8dee7;
+  display: block;
+  padding: 15px;
+}
+
+.results p {
+  background: #b8dee7;
+  color: #4d4c4c;
+  margin: 15px 0;
+  padding: 5px;
+  display: inline-block;
+  text-align: center;
+}
+
+.result {
+  font-size: 1.5rem;
+}
+
+.go-back {
+  grid-area: go-back;
+}
+
+.source {
+  grid-area: source;
+  line-height: 1.2;
+  background: #b8dee7;
+  color: #4d4c4c;
+  padding: 5px;
 }

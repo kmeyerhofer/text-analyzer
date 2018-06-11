@@ -1,18 +1,29 @@
 <section class="analysis-result">
-  <span class="usertext"><%= @view_data[:cleaned_up_text] %></span>
-  <p>
-    has been analyzed and found to have more
-  </p>
-  <span class="result">
-    <span class="<%= @view_data[:css_result] %>"
-      title="<%= @view_data[:positive_percent] %> positive, <%= @view_data[:negative_percent] %> negative">
-      <%= @view_data[:css_result].capitalize %> Sentiment
-    </span>
-  </span>
+  <header>
+    <h1>Analysis Result</h1>
+    <div class="gradient-ltr"></div>
+  </header>
 
-  <form method="get" action="<%= url '/' %>">
-    <button type="submit" class="goback">Back</button>
-  </form>
+  <div class="results">
+    <span class="usertext"><%= @view_data[:cleaned_up_text] %></span>
+    <p>
+      has been analyzed and found to have more
+    </p>
+    <div class="result">
+      <span class="<%= @view_data[:css_result] %>"
+        title="<%= @view_data[:positive_percent] %> positive, <%= @view_data[:negative_percent] %> negative">
+        <%= @view_data[:css_result].capitalize %> Sentiment
+      </span>
+    </div>
+    <div class="gradient-rtl"></div>
+  </div>
+
+  <div class="go-back">
+    <form method="get" action="<%= url '/' %>">
+      <input type="submit" class="goback" value="Back">
+    </form>
+  </div>
+
   <% if @view_data[:text_source] %>
   <div class="source">
     <%= ('Text source: ' + @view_data[:text_source]) %>
