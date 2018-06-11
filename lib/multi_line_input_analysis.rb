@@ -26,8 +26,7 @@ class MultiLineInputAnalysis
   def format_popup_list_items(analysis_object)
     "<div class=\"relative-parent\">
       <li class=\"#{analysis_object.background_css_class}\"
-          title=\"#{analysis_object.positive_percent} positive,
-                  #{analysis_object.negative_percent} negative\">
+          title=\"#{analysis_object.positive_percent} positive, #{analysis_object.negative_percent} negative\">
         #{analysis_object.cleaned_text}
       </li>
       <div class=\"popup\">

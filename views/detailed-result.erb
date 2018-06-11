@@ -1,19 +1,20 @@
-<br>
-<br>
-<br>
+<section class="detailed-result">
+  <header>
+    <h1>Analysis Result</h1>
+    <div class="gradient-ltr"></div>
+  </header>
+  <div class="detailed-results">
+    <h2>Your separated text analysis:</h2>
+    <ul>
+      <% @popup_results.each do |result| %>
+        <%= result %>
+      <% end %>
+    </ul>
+    <div class="gradient-rtl"></div>
+  </div>
 
-<section class="analysis-result detailed-result">
-  <ul>
-    <% @popup_results.each do |result| %>
-      <%= result %>
-    <% end %>
-  </ul>
-  <span class="result">
-
-  </span>
-
-  <form method="get" action="<%= url '/' %>">
-    <button type="submit" class="goback">Back</button>
+  <form class="go-back" method="get" action="<%= url '/' %>">
+    <input type="submit" class="goback" value="Back">
   </form>
 
 </section>
