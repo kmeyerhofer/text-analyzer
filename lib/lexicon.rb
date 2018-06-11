@@ -6,11 +6,12 @@ class Lexicon
   #assume_uniform makes analysis compute as if the categories were equal sizes
   @@words = NBayes::Base.new(assume_uniform: false)
 
+  # regex matches any non-word character except " ' ".
   def analyze(phrase)
-    @@words.classify(phrase.split(/\s+/)).max_class
+    @@words.classify(phrase.split(/[^\w']/)).max_class
   end
 
   def raw_data(phrase)
-    @@words.classify(phrase.split(/\s+/))
+    @@words.classify(phrase.split(/[^\w']/))
   end
 end
