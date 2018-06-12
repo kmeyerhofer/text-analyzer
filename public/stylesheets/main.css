@@ -396,6 +396,34 @@ em {
   font-style: italic;
 }
 
+.extra-grid {
+  display: grid;
+  grid-row-gap: 25px;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "header"
+    "extra-main"
+}
+
+.extra-main ul {
+  list-style: square;
+  margin: 20px 0 20px 25px;
+}
+
+.extra-main li {
+  margin: 10px 0;
+  color: #4d4c4c;
+}
+
+.extra-main a {
+  color: #4d4c4c;
+}
+
+.extra-main p {
+  margin: 15px 5px;
+}
+
 /* Tablets */
 @media screen and (min-width: 768px) {
   body {
