@@ -14,7 +14,7 @@ class AnalyzeTest < Minitest::Test
   end
 
   def db_connect
-    DBConnect.new
+    DBConnect.new(db_name)
   end
 
   def connection
