@@ -2,14 +2,8 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'tilt/erubis'
 require_relative './lib/random_sentence'
-require_relative './lib/input_analysis'
 require_relative './lib/multi_line_input_analysis'
 
-
-# require_relative '../nbayes-fork/lib/nbayes'
-
-
-require 'pry'
 configure do
   enable :sessions
   set :session_secret, ENV["SESSION_SECRET"]
@@ -71,7 +65,7 @@ end
 
 get '/random' do
   random_result = RandomSentence.new
-  input = InputAnalysis.new(random_result.selection, random_result.source)
+  input = InputAnalysis.new(random_result.selection, random_result.source, true)
   @view_data = input.view_elements
   erb :result
 end

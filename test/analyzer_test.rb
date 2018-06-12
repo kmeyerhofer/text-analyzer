@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'rack/test'
 require 'pg'
 require_relative '../analyzer'
-require_relative '../lib/dbconnect'
+# require_relative '../lib/dbconnect'
 
 
 class AnalyzeTest < Minitest::Test
@@ -71,7 +71,7 @@ class AnalyzeTest < Minitest::Test
   end
 
   def test_text_analyze_positive
-    post '/result', text_to_analyze: 'testing', analysis_type: 'all_text'
+    post '/result', text_to_analyze: @phrase = 'testing', analysis_type: 'all_text'
     assert_equal 200, last_response.status
     assert_includes last_response.body, 'testing'
     assert_includes last_response.body, "Positive"

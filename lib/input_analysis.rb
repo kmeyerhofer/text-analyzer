@@ -5,14 +5,14 @@ class InputAnalysis
   attr_reader :cleaned_text, :lexicon, :analysis_result, :random_text_source,
               :positive_percent, :negative_percent, :background_css_class
 
-  def initialize(cleaned_text, text_source = nil)
+  def initialize(cleaned_text, text_source = nil, random_phrase = nil)
     @cleaned_text = cleaned_text
     @lexicon = Lexicon.new
     @random_text_source = text_source
     @analysis_result = text_analysis
     @positive_percent, @negative_percent = format_percent
     @background_css_class = css_class
-    save_user_entry
+    save_user_entry unless random_phrase
   end
 
   def save_user_entry
