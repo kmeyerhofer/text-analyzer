@@ -3,7 +3,6 @@ require 'minitest/autorun'
 require 'rack/test'
 require 'pg'
 require_relative '../analyzer'
-# require_relative '../lib/dbconnect'
 
 
 class AnalyzeTest < Minitest::Test
