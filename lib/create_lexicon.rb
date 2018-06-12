@@ -3,13 +3,13 @@ require_relative 'dbconnect'
 
 class CreateLexicon
   attr_reader :words
-  def initialize(db_name)
+  def initialize
     @words = NBayes::Base.new
-    insert_categories(db_name)
+    insert_categories
     insert_tokens
   end
 
-  def insert_categories(db_name)
+  def insert_categories
     db = DBConnect.new
     db.insert_categories('positive', 'negative')
   end
