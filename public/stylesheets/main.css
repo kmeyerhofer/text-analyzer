@@ -111,10 +111,15 @@ input[type="radio"] {
   -moz-appearance: none;
   appearance: none;
   border-radius: 50%;
+  border: 2px solid #4d4c4c;
   width: 18px;
   height: 18px;
   margin-right: 8px;
   flex-shrink: 0;
+}
+
+input[type="radio"]:checked {
+  border: 9px solid #4d4c4c;
 }
 
 input[type="submit"] {
