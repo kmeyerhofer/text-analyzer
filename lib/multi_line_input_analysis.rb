@@ -1,6 +1,3 @@
-require_relative './input_analysis'
-
-
 class MultiLineInputAnalysis
   attr_accessor :separated_results, :list_item_strings,
                 :popup_list_item_strings

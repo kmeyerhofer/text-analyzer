@@ -1,5 +1,3 @@
-require 'nbayes'
-
 class Lexicon
   attr_reader :words
 

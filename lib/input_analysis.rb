@@ -1,6 +1,3 @@
-require_relative './dbconnect'
-require_relative './lexicon'
-
 class InputAnalysis
   attr_reader :cleaned_text, :lexicon, :analysis_result, :random_text_source,
               :positive_percent, :negative_percent, :background_css_class

@@ -1,6 +1,3 @@
-require 'nbayes'
-require_relative 'dbconnect'
-
 class CreateLexicon
   attr_reader :words
   def initialize(db_name)
