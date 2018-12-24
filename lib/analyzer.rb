@@ -38,6 +38,7 @@ end
 
 post '/api' do
   # require 'pry'; binding.pry
+  content_type 'application/json'
   cleaned_text = clean_text(params[:text_to_analyze].to_s.strip)
   text_to_analyze_length = cleaned_text.size
   if text_to_analyze_length == 0
