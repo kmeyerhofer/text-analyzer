@@ -10,20 +10,20 @@
     </label>
     <form method="post" action="<%= url '/result' %>">
       <textarea name="text_to_analyze" id="text_to_analyze"
-                rows="3" cols="35" autofocus maxlength="750"
+                rows="3" cols="35" autofocus maxlength="2000"
                 placeholder="Enter text here"></textarea>
       <div class="radio-button-background">
         Separate analysis by:
         <div class="radio-buttons">
-          <input type="radio" name="analysis_type" value="punctuation_delimiter"
+          <input type="radio" name="analysis_separator" value="punctuation"
                  id="punctuation">
           <label for="punctuation">Punctuation</label>
-          <input type="radio" name="analysis_type" value="new_line"
+          <input type="radio" name="analysis_separator" value="new_line"
                  id="new_line">
           <label for="new_line">New line</label>
-          <input type="radio" name="analysis_type" value="all_text"
+          <input type="radio" name="analysis_separator" value="none"
           id="text" checked>
-          <label for="text">Neither</label>
+          <label for="text">None</label>
         </div>
       </div>
       <input type="submit" value="Analyze" class="analyze">
@@ -56,6 +56,7 @@
   <div class="extra-info">
     <div class="gradient-rtl-large-screen"></div>
     <nav>
+      <a href="<%= url '/api' %>">API</a>
       <a href="<%= url '/learn-more' %>">Learn More</a>
       <a href="<%= url '/citations' %>">Citations</a>
       <a href="<%= url '/privacy-policy' %>">Privacy Policy</a>

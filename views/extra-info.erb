@@ -10,5 +10,10 @@
   <section class="extra-grid">
     <%= yield %>
   </section>
+  <div class="go-back">
+    <form method="get" action="<%= url '/' %>">
+      <input type="submit" class="goback" value="Back">
+    </form>
+  </div>
 </body>
 </html>

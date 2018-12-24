@@ -1,5 +1,3 @@
-require 'pg'
-
 class DBConnect
   attr_accessor :db_name
 

@@ -1,0 +1,73 @@
+<header>
+  <h1>API Documentation</h1>
+  <div class="gradient-ltr"></div>
+</header>
+
+<main class="extra-main">
+  <h2>Using this API</h2>
+  <p>
+    Follow these steps to access the analysis API for this project.
+  </p>
+  <p>
+    Make a POST request to <span class="code"><%= url '/api' %></span> with the parameters defined below:
+  </p>
+  <p>
+    <span class="code">analysis_separator=n</span>, <span class="code">n</span> being either <span class="code">punctuation</span>, <span class="code">new_line</span>, or <span class="code">none</span>.
+  </p>
+  <ul>
+    <li>
+      <span class="code">punctuation</span> separates your text to be analyzed in chunks on any of the following punctuation marks: <span class="code">, . ! ?</span>.
+    </li>
+    <li>
+      <span class="code">new_line</span> separates your text to be analyzed in chunks on the newline character, created when typing the Enter key.
+    </li>
+    <li>
+      <span class="code">none</span> does not separate your text, the text is analyzed as an entire phrase.
+    </li>
+  </ul>
+  <p>
+    <span class="code">text_to_analyze=n</span>, <span class="code">n</span> being the text you want analyzed.
+  </p>
+  <p>
+    The response you will receive is an array of JSON objects. Each object has four keys, <span class="code">"text"</span>, <span class="code">"css_result"</span>, <span class="code">"positive_percent"</span>, and <span class="code">"negative_percent"</span>.
+  </p>
+  <p>
+    The associated values for each key are the results calculated for the analyzed text.
+  </p>
+
+
+  <h2>Examples</h2>
+  <p>
+    Here are two CLI examples using <span class="code">curl</span>:
+  </p>
+  <p>
+    <span class="code">curl <%= url '/api' %> -X POST -d analysis_type=punctuation -d text_to_analyze=I%20hate!%20Anything%20not%20related.to%20biscuits</span>
+  </p>
+  <p>
+    <span class="code">curl <%= url '/api' %> -X POST -d analysis_type=new_line -d text_to_analyze=I%20hate%0D%0AAnything%20not%20related%0D%0Ato%20biscuits</span>
+  </p>
+  <p>
+    *Note the percent-encoded newline character <span class="code">%0D%0A</span>.
+  </p>
+
+
+  <h2>Errors</h2>
+  <p>
+    If the <span class="code">text_to_analyze</span> parameter is blank, you will receive this JSON object: <span class="code">{ "error":"Empty text." }</span>.
+  </p>
+  <p>
+    If the <span class="code">text_to_analyze</span> parameter exceeds the 2000 character limit, you will receive this JSON object: <span class="code">{ "error":"Exceeds 2000 character limit." }</span>.
+  </p>
+
+
+  <h2>Limits</h2>
+  <p>
+    There is a maximum 2000 character limit per request. There are no daily request limits.
+  </p>
+
+
+  <h2>Questions</h2>
+  <p>
+    If you have questions, reach out to me at <a href="mailto:kurt@kcmr.io">kurt@kcmr.io</a>
+  </p>
+</main>
