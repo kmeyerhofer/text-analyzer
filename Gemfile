@@ -12,3 +12,4 @@ gem 'pg'
 gem 'pry'
 
 ruby '2.4.0'
+gem 'unicorn' # for deployment
