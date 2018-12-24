@@ -1,0 +1,25 @@
+<header>
+  <h1>API Documentation</h1>
+  <div class="gradient-ltr"></div>
+</header>
+
+<main class="extra-main">
+  <h2>Using this API</h2>
+  <p>
+    Follow these steps to access the analysis API for this project.
+  </p>
+  <p>
+    Make a POST request to <span class="code"><%= url '/api' %></span> with the parameters defined below:
+  </p>
+  <p>
+    <span class="code">analysis_separator=n</span>, n being either punctuation, new_line, or none.
+  </p>
+  <p>
+    <span class="code">text_to_analyze=n</span>, n being the text you want analyzed.
+  </p>
+
+  <h2>Limits</h2>
+  <p>
+    There is a maximum 2000 character limit per request. There are no daily request limits.
+  </p>
+</main>
