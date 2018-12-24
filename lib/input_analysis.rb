@@ -29,13 +29,18 @@ class InputAnalysis
 
   def view_elements
     view_data = {}
-    view_data[:cleaned_up_text] = cleaned_text
+    view_data[:text] = cleaned_text
     view_data[:css_result] = background_css_class
     view_data[:positive_percent] = positive_percent
     view_data[:negative_percent] = negative_percent
-    view_data[:text_source] = random_text_source
+    view_data[:text_source] = random_text_source if random_text_source
 
     view_data
+  end
+
+  def json
+    results = [view_elements]
+    JSON.generate(results)
   end
 
   private
