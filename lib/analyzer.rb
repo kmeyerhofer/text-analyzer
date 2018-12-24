@@ -1,4 +1,4 @@
-ANALYZE_CHAR_LIMIT = 2500
+ANALYZE_CHAR_LIMIT = 2000
 
 configure do
   enable :sessions
