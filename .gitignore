@@ -2,3 +2,6 @@ dbconnection\ methods\ to\ write.txt
 data/combined-lexicon.yml.bak
 notes
 sql-efficiency-notes.txt
+bin/
+config/
+shared/
