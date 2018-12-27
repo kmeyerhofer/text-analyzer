@@ -2,7 +2,7 @@ ENV["RACK_ENV"] = 'test'
 require 'minitest/autorun'
 require 'rack/test'
 require 'pg'
-require_relative '../analyzer'
+require_relative '../text_analyzer'
 
 
 class AnalyzeTest < Minitest::Test
@@ -63,30 +63,38 @@ class AnalyzeTest < Minitest::Test
 
   def test_text_analyze_negative
     post '/result', text_to_analyze: @phrase = 'testing this text',
-      analysis_type: 'all_text'
+      analysis_separator: 'none'
     assert_equal 200, last_response.status
-    assert_includes last_response.body, 'testing this text'
+    assert_includes last_response.body, @phrase
     assert_includes last_response.body, "Negative"
   end
 
   def test_text_analyze_positive
-    post '/result', text_to_analyze: @phrase = 'testing', analysis_type: 'all_text'
+    post '/result', text_to_analyze: @phrase = 'testing',
+      analysis_separator: 'none'
     assert_equal 200, last_response.status
-    assert_includes last_response.body, 'testing'
+    assert_includes last_response.body, @phrase
     assert_includes last_response.body, "Positive"
   end
 
+  def test_api_route_returns_result
+    post '/api', text_to_analyze: @phrase = 'test', analysis_separator: 'none'
+    assert_equal 200, last_response.status
+    assert_includes last_response.body, @phrase
+    assert_includes last_response.body, 'negative'
+  end
+
   def test_no_text_error
-    post '/result', text_to_analyze: '   '
+    post '/result', text_to_analyze: '', analysis_separator: 'none'
     assert_equal 302, last_response.status
     assert_equal 'Please input text.', session[:flash_message]
   end
 
   def test_too_long_text_error
-    text = "#{'abcdefghij' * 76}"
-    post '/result', text_to_analyze: text
+    text = "#{'abcdefghij' * 760}"
+    post '/result', text_to_analyze: text, analysis_separator: 'none'
     assert_equal 302, last_response.status
-    assert_equal 'Please input less than 750 characters.',
+    assert_equal 'Please input less than 2000 characters.',
       session[:flash_message]
   end
 
@@ -102,22 +110,8 @@ class AnalyzeTest < Minitest::Test
 
   def test_recent_entries_with_result_class_negative
     @phrase = 'wheat' # negative
-    post '/result', text_to_analyze: @phrase, analysis_type: 'all_text'
+    post '/result', text_to_analyze: @phrase, analysis_separator: 'none'
     assert_includes last_response.body, 'Negative'
-    get '/'
-    assert_includes last_response.body, @phrase
-    assert_includes last_response.body, "class=\"negative\""
-  end
-
-  def test_clear_recent_entries_with_result_negative
-    @phrase = 'you missed it!' # negative
-    post '/result', text_to_analyze: @phrase, analysis_type: 'all_text'
-    assert_includes last_response.body, 'Negative'
-    get '/'
-    assert_includes last_response.body, @phrase
-    assert_includes last_response.body, "class=\"negative\""
-    post '/clear'
-    refute_includes last_response.body, @phrase
   end
 
   def test_database_categories
