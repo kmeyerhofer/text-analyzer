@@ -24,14 +24,12 @@ var app = new Vue({
     analyze: function () {
       let self = this;
       self.analyzing = "Analyzing...";
-      axios({
-        method:'post',
-        url:'/api',
-        params: {
-          analysis_separator: self.analysis_separator,
-          text_to_analyze: self.text_to_analyze
-        },
-      }).then(function(response) {
+      let formData = new FormData();
+      formData.append('text_to_analyze', self.text_to_analyze);
+      formData.append('analysis_separator', self.analysis_separator);
+      headers = { headers: { 'Content-Type': 'multipart/form-data' } };
+      axios.post('/api', formData, headers)
+      .then(function(response) {
         if (response.data.error) {
           self.results.unshift([response.data]);
         } else {
@@ -44,8 +42,10 @@ var app = new Vue({
     formatResult: function(resultArr) {
       let result = '';
       if (resultArr[0].error) {
+        // Formats error message
         result += this.listError(resultArr[0]);
       } else {
+        // Formats analyzed text
         for (let i = 0; i < resultArr.length; i += 1) {
           result += this.listResult(resultArr[i]);
           if (i != resultArr.length - 1) {
@@ -68,7 +68,7 @@ var app = new Vue({
     listError: function(error) {
       let result = '';
       result += "<span ";
-      result += "class=\"negative\">";
+      result += "class=\"error\">";
       result += error.error;
       result += "</span>";
       return result;
