@@ -40,7 +40,7 @@ post '/api' do
   content_type 'application/json'
   cleaned_text = clean_text(params[:text_to_analyze].to_s.strip)
   analysis_separator = params[:analysis_separator]
-  text_to_analyze_length = cleaned_text.size
+  text_to_analyze_length = params[:text_to_analyze].size
   if text_to_analyze_length == 0
     json_error('Empty text.')
   elsif text_to_analyze_length > ANALYZE_CHAR_LIMIT
@@ -57,7 +57,7 @@ end
 
 post '/result' do
   cleaned_text = clean_text(params[:text_to_analyze].to_s.strip)
-  text_to_analyze_length = cleaned_text.size
+  text_to_analyze_length = params[:text_to_analyze].size
   analysis_separator = params[:analysis_separator]
   if text_to_analyze_length == 0
     session[:flash_message] = 'Please input text.'
