@@ -33,7 +33,7 @@ helpers do
 end
 
 get '/' do
-  erb :home
+  erb :'vue-home'
 end
 
 post '/api' do
