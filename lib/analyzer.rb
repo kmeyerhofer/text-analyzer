@@ -43,7 +43,7 @@ post '/api' do
   text_to_analyze_length = cleaned_text.size
   if text_to_analyze_length == 0
     json_error('Empty text.')
-  elsif text_to_analyze_length >= ANALYZE_CHAR_LIMIT
+  elsif text_to_analyze_length > ANALYZE_CHAR_LIMIT
     json_error("Exceeds #{ANALYZE_CHAR_LIMIT} character limit.")
   elsif analysis_separator == 'none'
     [InputAnalysis.new(cleaned_text).json]
