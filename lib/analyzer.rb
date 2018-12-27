@@ -22,7 +22,7 @@ helpers do
   def separate_by(cleaned_text, param)
     if param == 'new_line'
       cleaned_text.split(/\n/)
-    else
+    elsif param == 'punctuation'
       cleaned_text.split(/(?<=[?.!,])/)
     end
   end
@@ -33,50 +33,52 @@ helpers do
 end
 
 get '/' do
-  erb :home
+  erb :'vue-home'
 end
 
 post '/api' do
-  # require 'pry'; binding.pry
   content_type 'application/json'
   cleaned_text = clean_text(params[:text_to_analyze].to_s.strip)
-  text_to_analyze_length = cleaned_text.size
+  analysis_separator = params[:analysis_separator]
+  text_to_analyze_length = params[:text_to_analyze].size
   if text_to_analyze_length == 0
     json_error('Empty text.')
-  elsif text_to_analyze_length >= ANALYZE_CHAR_LIMIT
+  elsif text_to_analyze_length > ANALYZE_CHAR_LIMIT
     json_error("Exceeds #{ANALYZE_CHAR_LIMIT} character limit.")
-  elsif params[:analysis_separator] == 'none'
+  elsif analysis_separator == 'none'
     [InputAnalysis.new(cleaned_text).json]
-  else
-    separated_text = separate_by(cleaned_text, params[:analysis_separator])
+  elsif analysis_separator == 'punctuation' || analysis_separator == 'new_line'
+    separated_text = separate_by(cleaned_text, analysis_separator)
     MultiLineInputAnalysis.new(separated_text).json
+  else
+    json_error('Invalid separator value.')
   end
 end
 
 post '/result' do
   cleaned_text = clean_text(params[:text_to_analyze].to_s.strip)
-  text_to_analyze_length = cleaned_text.size
-
+  text_to_analyze_length = params[:text_to_analyze].size
+  analysis_separator = params[:analysis_separator]
   if text_to_analyze_length == 0
     session[:flash_message] = 'Please input text.'
     redirect to '/'
-
   elsif text_to_analyze_length >= ANALYZE_CHAR_LIMIT
     session[:flash_message] = "Please input less than #{ANALYZE_CHAR_LIMIT} characters."
     redirect to '/'
-
-  elsif params[:analysis_separator] == 'none'
+  elsif analysis_separator == 'none'
     input = InputAnalysis.new(cleaned_text)
     @view_data = input.view_elements
     session[:input].unshift(input.session_elements)
     erb :result
-
-  else
-    separated_text = separate_by(cleaned_text, params[:analysis_separator])
+  elsif analysis_separator == 'punctuation' || analysis_separator == 'new_line'
+    separated_text = separate_by(cleaned_text, analysis_separator)
     input = MultiLineInputAnalysis.new(separated_text)
     @popup_results = input.popup_list_item_strings
     session[:input].unshift(input.list_item_strings.join(''))
     erb :'detailed-result'
+  else
+    session[:flash_message] = 'An error occurred, please try again.'
+    redirect to '/'
   end
 end
 

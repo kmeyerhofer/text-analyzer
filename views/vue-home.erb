@@ -1,0 +1,69 @@
+<section class="grid-container" id="app">
+  <header>
+    <h1>Text Analyzer</h1>
+    <div class="gradient-ltr"></div>
+  </header>
+
+  <div class="input">
+    <label for="text_to_analyze">
+      Input text to analyze
+    </label>
+    <form method="post" action="<%= url '/result' %>">
+      <textarea v-model="text_to_analyze"
+                name="text_to_analyze" id="text_to_analyze"
+                rows="3" cols="35" autofocus
+                placeholder="Enter text here"></textarea>
+      <span class="text-counter" :class="textCounterError">
+        {{ textCounter }} / 2000
+      </span>
+      <div class="radio-button-background">
+        Separate analysis by:
+        <div class="radio-buttons">
+          <input type="radio" name="analysis_separator" value="punctuation"
+                 id="punctuation" v-model="analysis_separator">
+          <label for="punctuation">Punctuation</label>
+          <input type="radio" name="analysis_separator" value="new_line"
+                 id="new_line" v-model="analysis_separator">
+          <label for="new_line">New line</label>
+          <input type="radio" name="analysis_separator" value="none"
+                 id="text" v-model="analysis_separator" checked>
+          <label for="text">None</label>
+        </div>
+      </div>
+      <input :value="analyzing" @click.prevent="analyze" :disabled="isDisabled"
+             :title="disabledError" type="submit" class="analyze">
+    </form>
+
+    <form id="random" action="<%= url '/random' %>" method="get">
+      <input class="random" type="submit"
+             value="Try a Random Phrase" form="random">
+    </form>
+    <div class="gradient-rtl"></div>
+  </div>
+
+  <div v-show="results.length > 0" class="previous-searches">
+    <h2>Your most recent entries</h2>
+    <ul class="previous-search-scroll">
+      <li v-for="result in results" v-html="formatResult(result)"></li>
+    </ul>
+    <form method="post" action="<%= url '/clear' %>" id="clear">
+      <input @click.prevent="clearEntries"
+             type="submit" class="clear" value="Clear Entries" for="clear">
+    </form>
+    <div class="gradient-ltr"></div>
+  </div>
+
+  <div class="extra-info">
+    <div class="gradient-rtl-large-screen"></div>
+    <nav>
+      <a href="<%= url '/api' %>">API</a>
+      <a href="<%= url '/learn-more' %>">Learn More</a>
+      <a href="<%= url '/citations' %>">Citations</a>
+      <a href="<%= url '/privacy-policy' %>">Privacy Policy</a>
+    </nav>
+  </div>
+
+  <footer>
+    By <a href="https://www.kcmr.io">Kurt Meyerhofer</a>
+  </footer>
+</section>

@@ -1,12 +1,28 @@
 @import url("reset.css");
 
+:root {
+  --background-primary: #efefef;
+  --flash-background: #ca0000;
+  --text-primary: #4a4949;
+  --white-text: #fff;
+  --gradient-separator: #ff3b3f;
+  --sub-heading-text: #4d4c4c;
+  --sub-heading-background: #b8dee7;
+  --text-input-background: #ff3b49;
+  --result-positive: #5bcc63;
+  --result-negative: #ff6571;
+  --border: #559bab;
+  --button-hover: #f00;
+  --button-disabled: grey;
+}
+
 html {
   font-size: 20px;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 body {
-  background-color: #efefef;
+  background-color: var(--background-primary);
   min-width: 350px;
   padding: 10px;
 }
@@ -28,14 +44,14 @@ body {
 h1 {
   font-size: 2.75rem;
   text-align: center;
-  color: #4a4949;
+  color: var(--text-primary);
   font-weight: bold;
 }
 
 .flash-message {
   padding: 15px;
-  background-color: #ca0000;
-  color: #fff;
+  background-color: var(--flash-background);
+  color: var(--flash-text);
   font-weight: bold;
   text-align: center;
   display: block;
@@ -56,14 +72,14 @@ header {
 
 .gradient-ltr {
   margin: 20px auto 0 auto;
-  background: linear-gradient(to right, #ff3b3f 15%, transparent);
+  background: linear-gradient(to right, var(--gradient-separator) 15%, transparent);
   height: 4px;
   width: 100%;
 }
 
 .gradient-rtl {
   margin: 20px auto 0 auto;
-  background: linear-gradient(to left, #ff3b3f 15%, transparent);
+  background: linear-gradient(to left, var(--gradient-separator) 15%, transparent);
   height: 4px;
   width: 100%;
 }
@@ -75,8 +91,8 @@ header {
 
 h2,
 .input label:first-child {
-  color: #4d4c4c;
-  background: #b8dee7;
+  color: var(--sub-heading-text);
+  background: var(--sub-heading-background);
   font-size: 1.25rem;
   padding: 5px;
   text-align: center;
@@ -90,9 +106,9 @@ textarea {
   resize: none;
   height: 108px;
   padding: 15px;
-  border: 3px solid #b8dee7;
+  border: 3px solid var(--sub-heading-background);
   font-size: 1rem;
-  color: #4d4c4c;
+  color: var(--sub-heading-text);
 }
 
 .radio-buttons {
@@ -116,7 +132,7 @@ input[type="radio"] {
   -moz-appearance: none;
   appearance: none;
   border-radius: 50%;
-  border: 2px solid #4d4c4c;
+  border: 2px solid var(--sub-heading-text);
   width: 18px;
   height: 18px;
   margin-right: 8px;
@@ -124,7 +140,7 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked {
-  border: 9px solid #4d4c4c;
+  border: 9px solid var(--sub-heading-text);
 }
 
 input[type="submit"] {
@@ -132,21 +148,39 @@ input[type="submit"] {
   -moz-appearance: none;
   appearance: none;
   height: 45px;
-  background: #ff3b49;
+  background: var(--text-input-background);
   font-size: 1rem;
   box-sizing: border-box;
-  color: #efefef;
+  color: var(--background-primary);
   cursor: pointer;
+  border: none;
+}
+
+input[type="submit"]:disabled,
+input[type="submit"]:disabled:hover {
+  background: var(--button-disabled);
+  cursor: not-allowed;
 }
 
 input[type="submit"]:hover {
-  background: red;
+  background: var(--button-hover);
 }
 
 .radio-button-background {
   padding: 5px;
-  background: #b8dee7;
-  color: #4d4c4c;
+  background: var(--sub-heading-background);
+  color: var(--sub-heading-text);
+}
+
+.text-counter {
+  color: var(--text-primary);
+  font-size: .9rem;
+  position: relative;
+  bottom: 10px;
+}
+
+.counter-error {
+  color: var(--button-hover);
 }
 
 .analyze {
@@ -173,32 +207,37 @@ input[type="submit"]:hover {
   overflow: auto;
   line-height: 1.5;
   margin: 20px 0;
-  border: 3px solid #b8dee7;
+  border: 3px solid var(--sub-heading-background);
   box-sizing: border-box;
   padding: 5px;
-  background: #fff;
+  background: var(--white-text);
 }
 
-.recent-entries li {
+.previous-search-scroll li {
   margin-bottom: 20px;
 }
 
-.recent-entries li:last-child {
+.previous-search-scroll li:last-child {
   margin: 0;
 }
 
 .positive,
-.negative {
-  color: #efefef;
+.negative,
+.error {
+  color: var(--background-primary);
   padding: 3px;
 }
 
 .positive {
-  background: #5bcc63;
+  background: var(--result-positive);
 }
 
 .negative {
-  background: #ff6571;
+  background: var(--result-negative);
+}
+
+.error {
+  background: var(--button-hover);
 }
 
 /* Bottom links & hover */
@@ -217,8 +256,8 @@ input[type="submit"]:hover {
 
 .extra-info a {
   height: 25px;
-  color: #4a4949;
-  background-color: #b8dee7;
+  color: var(--text-primary);
+  background-color: var(--sub-heading-background);
   margin: 15px 0;
   padding: 15px;
   flex-shrink: 0;
@@ -232,7 +271,7 @@ input[type="submit"]:hover {
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 10px solid #559bab;
+  border-bottom: 10px solid var(--border);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -245,11 +284,11 @@ footer {
   grid-area: footer;
   margin: 15px 0;
   text-align: center;
-  color: #4d4c4c;
+  color: var(--sub-heading-text);
 }
 
 footer a {
-  color: #4a4949;
+  color: var(--text-primary);
 }
 
 /* Non-separated analysis results page */
@@ -280,16 +319,16 @@ footer a {
 }
 
 .usertext {
-  color: #4d4c4c;
-  background: #fff;
-  border: 3px solid #b8dee7;
+  color: var(--sub-heading-text);
+  background: var(--white-text);
+  border: 3px solid var(--sub-heading-background);
   display: block;
   padding: 15px;
 }
 
 .results p {
-  background: #b8dee7;
-  color: #4d4c4c;
+  background: var(--sub-heading-background);
+  color: var(--sub-heading-text);
   margin: 15px 0;
   padding: 5px;
   display: inline-block;
@@ -307,8 +346,8 @@ footer a {
 .source {
   grid-area: source;
   line-height: 1.2;
-  background: #b8dee7;
-  color: #4d4c4c;
+  background: var(--sub-heading-background);
+  color: var(--sub-heading-text);
   padding: 5px;
 }
 
@@ -331,13 +370,13 @@ footer a {
 .detailed-result ul {
   margin-top: 15px;
 	word-break: break-all;
-  background: #fff;
-  border: 3px solid #b8dee7;
+  background: var(--white-text);
+  border: 3px solid var(--sub-heading-background);
   padding: 15px;
 }
 
 .detailed-result li {
-	color: #fff;
+	color: var(--white-text);
 	padding: 5px;
 	margin: 5px;
   display: inline-block;
@@ -359,13 +398,13 @@ div.popup {
 	left: 0px;
 	font-size: 20px;
 	padding: 8px;
-  background: #efefef;
-  color: #4d4c4c;
+  background: var(--background-primary);
+  color: var(--sub-heading-text);
 }
 
 .popup-positive,
 .popup-negative {
-  border: solid #4d4c4c;
+  border: solid var(--sub-heading-text);
 }
 
 .popup span {
@@ -375,12 +414,12 @@ div.popup {
 }
 
 .popup-positive {
-	background: #5bcc63;
+	background: var(--result-positive);
 	border-width: 2px 1px 2px 2px;
 }
 
 .popup-negative {
-	background: #ff6571;
+	background: var(--result-negative);
 	border-width: 2px 2px 2px 1px;
 }
 
@@ -398,7 +437,7 @@ div.popup {
 	width: 0;
 	height: 0;
 	border-right: 8px solid transparent;
-	border-top: 8px solid #efefef;
+	border-top: 8px solid var(--background-primary);
 	border-left: 8px solid transparent;
 }
 
@@ -423,11 +462,11 @@ em {
 
 .extra-main li a {
   margin: 10px 0;
-  color: #4d4c4c;
+  color: var(--sub-heading-text);
 }
 
 /* .extra-main a {
-  color: #4d4c4c;
+  color: var(--sub-heading-text);
 } */
 
 .extra-main p {
@@ -483,7 +522,7 @@ em {
 
   .gradient-rtl-large-screen {
     margin: -25px auto 0 auto;
-    background: linear-gradient(to left, #ff3b3f 15%, transparent);
+    background: linear-gradient(to left, var(--gradient-separator) 15%, transparent);
     height: 4px;
     width: 100%;
     display: block;
@@ -505,8 +544,8 @@ em {
 /* Documentation code text */
 .code {
   font-family: monospace;
-  background: #4a4949;
-  color: #efefef;
+  background: var(--text-primary);
+  color: var(--background-primary);
   padding: 2px 4px;
   line-height: 1.44;
 }

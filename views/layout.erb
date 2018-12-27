@@ -5,6 +5,10 @@
   <title>Text Analyzer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="<%= url 'stylesheets/main.css' %>">
+  <script type="text/javascript"
+          src="<%= url 'javascript/axios.min.js' %>"></script>
+  <script type="text/javascript"
+          src="<%= url 'javascript/vue.min.js' %>"></script>
 </head>
 <body>
   <% if session[:flash_message] %>
@@ -15,4 +19,6 @@
   <% end %>
   <%= yield %>
 </body>
+<script type="text/javascript"
+        src="<%= url 'javascript/vueTextAnalyzer.js' %>"></script>
 </html>
