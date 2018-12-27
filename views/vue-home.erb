@@ -11,8 +11,11 @@
     <form method="post" action="<%= url '/result' %>">
       <textarea v-model="text_to_analyze"
                 name="text_to_analyze" id="text_to_analyze"
-                rows="3" cols="35" autofocus maxlength="2000"
+                rows="3" cols="35" autofocus
                 placeholder="Enter text here"></textarea>
+      <span class="text-counter" :class="textCounterError">
+        {{ textCounter }} / 2000
+      </span>
       <div class="radio-button-background">
         Separate analysis by:
         <div class="radio-buttons">
@@ -28,7 +31,7 @@
         </div>
       </div>
       <input :value="analyzing" @click.prevent="analyze" :disabled="isDisabled"
-             type="submit" class="analyze">
+             :title="disabledError" type="submit" class="analyze">
     </form>
 
     <form id="random" action="<%= url '/random' %>" method="get">
@@ -61,7 +64,6 @@
   </div>
 
   <footer>
-    By <a href="mailto:kurt@kcmr.io">Kurt Meyerhofer</a> for
-    <a href="https://launchschool.com">Launch School</a>
+    By <a href="https://www.kcmr.io">Kurt Meyerhofer</a>
   </footer>
 </section>

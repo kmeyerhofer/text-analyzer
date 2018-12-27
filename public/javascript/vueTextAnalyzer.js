@@ -6,17 +6,35 @@ var app = new Vue({
     analyzing: 'Analyze',
     results: [],
     isDisabled: true,
+    disabledError: 'Input text.',
+    textCounter: 0,
+    textCounterError: {
+      'counter-error': false,
+    },
   },
   watch: {
     results: function() {
       this.analyzing = 'Analyze';
     },
     text_to_analyze: function() {
-      let text = this.text_to_analyze.length
+      let text = this.text_to_analyze.length;
+      this.adjustTextCounter(text);
       if (text >= 1 && text <= 2000) {
         this.isDisabled = false;
-      } else {
+        this.disabledError = '';
+      } else if (text > 2000) {
         this.isDisabled = true;
+        this.disabledError = 'Text cannot exceed 2000 characters.';
+      } else if (text < 1 ){
+        this.isDisabled = true;
+        this.disabledError = 'Input text.';
+      }
+    },
+    textCounter: function() {
+      if (this.textCounter > 2000) {
+        this.textCounterError["counter-error"] = true;
+      } else {
+        this.textCounterError["counter-error"] = false;
       }
     },
   },
@@ -80,6 +98,9 @@ var app = new Vue({
     },
     clearEntries: function() {
       this.results.splice(0);
+    },
+    adjustTextCounter(textLength) {
+      this.textCounter = textLength;
     },
   },
 })

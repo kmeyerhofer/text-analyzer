@@ -13,6 +13,7 @@
   --result-negative: #ff6571;
   --border: #559bab;
   --button-hover: #f00;
+  --button-disabled: grey;
 }
 
 html {
@@ -157,7 +158,8 @@ input[type="submit"] {
 
 input[type="submit"]:disabled,
 input[type="submit"]:disabled:hover {
-  background: grey;
+  background: var(--button-disabled);
+  cursor: not-allowed;
 }
 
 input[type="submit"]:hover {
@@ -168,6 +170,20 @@ input[type="submit"]:hover {
   padding: 5px;
   background: var(--sub-heading-background);
   color: var(--sub-heading-text);
+}
+
+.text-counter {
+  color: var(--text-primary);
+  font-size: .9rem;
+  position: relative;
+  /* display: inline-block; */
+  /* line-height: .5; */
+  /* top: 0px; */
+  bottom: 10px;
+}
+
+.counter-error {
+  color: var(--button-hover);
 }
 
 .analyze {
