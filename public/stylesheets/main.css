@@ -12,6 +12,7 @@
   --result-positive: #5bcc63;
   --result-negative: #ff6571;
   --border: #559bab;
+  --button-hover: #f00;
 }
 
 html {
@@ -160,7 +161,7 @@ input[type="submit"]:disabled:hover {
 }
 
 input[type="submit"]:hover {
-  background: red;
+  background: var(--button-hover);
 }
 
 .radio-button-background {
@@ -208,7 +209,8 @@ input[type="submit"]:hover {
 }
 
 .positive,
-.negative {
+.negative,
+.error {
   color: var(--background-primary);
   padding: 3px;
 }
@@ -219,6 +221,10 @@ input[type="submit"]:hover {
 
 .negative {
   background: var(--result-negative);
+}
+
+.error {
+  background: var(--button-hover);
 }
 
 /* Bottom links & hover */
