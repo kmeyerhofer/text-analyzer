@@ -176,9 +176,6 @@ input[type="submit"]:hover {
   color: var(--text-primary);
   font-size: .9rem;
   position: relative;
-  /* display: inline-block; */
-  /* line-height: .5; */
-  /* top: 0px; */
   bottom: 10px;
 }
 
