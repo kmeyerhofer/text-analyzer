@@ -1,5 +1,6 @@
 require 'rake/testtask'
 require 'nbayes'
+require 'pry'
 require_relative './lib/create_lexicon.rb'
 require_relative './lib/dbconnect.rb'
 

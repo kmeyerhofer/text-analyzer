@@ -10,6 +10,6 @@ gem 'rake'
 gem 'rack-test'
 gem 'pg'
 gem 'unicorn' # for deployment
-gem 'smarter_csv'
+gem 'pry'
 
 ruby '2.4.0'

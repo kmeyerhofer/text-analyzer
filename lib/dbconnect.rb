@@ -77,6 +77,6 @@ class DBConnect
 
   def delete_all_tokens
     sql = "DELETE FROM tokens;"
-    connect { |connection| connection.connect.exec(sql) }
+    connect { |connection| connection.exec(sql) }
   end
 end
