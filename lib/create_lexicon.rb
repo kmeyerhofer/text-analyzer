@@ -39,8 +39,13 @@ class CreateLexicon
     p "Line count: #{@line_count}. Time: #{Time.now}"
   end
 
+  def output_file_in_use(file)
+    p "Reading file #{file}"
+  end
+
   def text_tokens(files)
     files.each do |file|
+      output_file_in_use(file)
       positive_or_negative = pos_or_neg_file(file)
       File.open(file).each do |line|
         @line_count += 1
@@ -71,6 +76,7 @@ class CreateLexicon
 
   def csv_tokens(files)
     files.each do |file|
+      output_file_in_use(file)
       CSV.foreach(file) do |row|
         @line_count += 1
         @words.train(csv_file_text(file, row).split(/\s+/),
