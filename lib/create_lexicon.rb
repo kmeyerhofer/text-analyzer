@@ -12,17 +12,51 @@ class CreateLexicon
   end
 
   def insert_tokens
-    corpus = Dir.entries('./data').select { |file| file.match?(/(pos|neg)/) }
-    corpus.each do |file|
+    text_files = Dir.entries('./data').select { |file| file.match?(/(pos|neg)/) }
+    csv_files = Dir.entries('./data').select { |file| file.match?(/\.csv/) }
+    text_file_tokens(text_files)
+    csv_file_tokens(csv_files)
+    end
+  end
+
+  def pos_or_neg_file(file)
+    file.match?(/pos/) ? 'positive' : 'negative'
+  end
+
+  def text_tokens(files)
+    files.each do |file|
+      positive_or_negative = pos_or_neg_file(file)
       File.open("./data/#{file}").each do |line|
         encoded_line = line.force_encoding(Encoding::ISO_8859_1)
         words.train(encoded_line.split(/\s+/),
-        positive_or_negative(file)) unless line.start_with?(';')
+          positive_or_negative) unless line.start_with?(';')
       end
     end
   end
 
-  def positive_or_negative(file)
-    file.match?(/pos/) ? 'positive' : 'negative'
+  def pos_or_neg_num(num)
+    case num
+    when '2'
+      'positive'
+    when '1'
+      'negative'
+    end
+  end
+
+  def csv_file_text(file, row)
+    if file.match?(/yelp/)
+      row[1]
+    elsif file.match?(/amazon/)
+      "#{row[1]} #{row[2]}"
+    end
+  end
+
+  def csv_file_tokens(files)
+    files.each do |file|
+      CSV.foreach("./data/#{file}") do |row|
+        words.train(csv_file_text(file, row).split(/\s+/),
+          pos_or_neg_num(row[0])) # row[0] may or may not be a string
+      end
+    end
   end
 end

@@ -13,7 +13,7 @@ def set_db
   DBConnect.new(db_name)
 end
 
-desc 'Inserts data into local PostgreSQL database'
+desc 'Initial insertion of data into local PostgreSQL database.'
 task :createlexicon do
   db = set_db
   if db.connect && (db.token_count < 1 && db.category_count < 1)

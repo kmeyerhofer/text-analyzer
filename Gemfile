@@ -9,7 +9,7 @@ gem 'nbayes', git: 'https://github.com/kmeyerhofer/nbayes' # forked version
 gem 'rake'
 gem 'rack-test'
 gem 'pg'
-gem 'pry'
+gem 'unicorn' # for deployment
+gem 'smarter_csv'
 
 ruby '2.4.0'
-gem 'unicorn' # for deployment
