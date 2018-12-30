@@ -28,7 +28,8 @@ class CreateLexicon
 
   def insert_tokens
     text_tokens(text_files)
-    csv_tokens(csv_files)
+    # csv_tokens(csv_files)
+    smarter_csv_tokens(csv_files)
   end
 
   def pos_or_neg_file(file)
@@ -58,7 +59,7 @@ class CreateLexicon
   end
 
   def pos_or_neg_num(num)
-    case num
+    case num.to_s
     when '2'
       'positive'
     when '1'
@@ -82,6 +83,48 @@ class CreateLexicon
         @words.train(csv_file_text(file, row).split(/\s+/),
           pos_or_neg_num(row[0]))
         output_line_count if @line_count % 1000 == 0
+      end
+    end
+  end
+
+  def csv_file_hash_text(file, row)
+    if file.match?(/yelp/)
+      row[:comment]
+    elsif file.match?(/amazon/)
+      "#{row[:title]} #{row[:review]}"
+    end
+  end
+
+  def csv_file_source(file)
+    if file.match?(/yelp/)
+      ['category', 'comment',  '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
+    elsif file.match?(/amazon/)
+      ['category', 'title', 'review']
+    end
+  end
+
+  def csv_parallel_worker(file, array)
+    array.each do |row|
+      @line_count += 1
+      @words.train(csv_file_hash_text(file, row).split(/\s+/),
+        pos_or_neg_num(row[:category]))
+      output_line_count if @line_count % 100 == 0
+    end
+  end
+
+  def smarter_csv_tokens(files)
+    files.each do |file|
+      output_file_in_use(file)
+      chunks = SmarterCSV.process(file, { chunk_size: 1000, user_provided_headers: csv_file_source(file)})
+        # @line_count += 1
+        # @words.train(csv_file_hash_text(file, row[0]).split(/\s+/),
+          # pos_or_neg_num(row[0][:category]))
+        # output_line_count if @line_count % 1000 == 0
+      # end
+      Parallel.each(chunks, in_threads: 4) do |chunk|
+        # @words.train(csv_file_hash_text(file, row[0]).split(/\s+/),
+        #   pos_or_neg_num(row[0][:category]))
+        csv_parallel_worker(file, chunk)
       end
     end
   end

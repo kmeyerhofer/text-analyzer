@@ -2,6 +2,8 @@ require 'rake/testtask'
 require 'nbayes'
 require 'pry'
 require 'csv'
+require 'smarter_csv'
+require 'parallel'
 require_relative './lib/create_lexicon.rb'
 require_relative './lib/dbconnect.rb'
 
@@ -34,6 +36,24 @@ task :stats do
   Category Count:   #{db.category_count}
   User Entry Count: #{db.user_entry_count}
   STATS
+end
+
+desc 'Pass a single filename ("/path/to/file") to add to the lexicon database.'
+task :inserttokens do
+  argument = ARGV[1..ARGV.length - 1]
+  if argument.length < 1
+    puts "Please pass a filename argument."
+  elsif argument.length == 1
+    if argument[0].class != String
+      puts "Argument must be a string"
+    elsif File.exist?(argument[0])
+
+    else
+      puts "File does not exist."
+    end
+  else
+    puts "Command only takes one filename argument."
+  end
 end
 
 desc 'Deletes current tokens and re-adds them to database.'

@@ -11,5 +11,7 @@ gem 'rack-test'
 gem 'pg'
 gem 'unicorn' # for deployment
 gem 'pry'
+gem 'smarter_csv'
+gem 'parallel'
 
 ruby '2.4.0'
