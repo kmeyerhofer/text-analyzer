@@ -65,9 +65,6 @@ class ProcessLexicon
         p "Exception caught: #{e}"
         words_to_s = csv_file_hash_text(file, row).to_s
         @words.train(words_to_s.split(/\s+/), pos_or_neg_num(row[:category]))
-      ensure
-        words_to_s = csv_file_hash_text(file, row).to_s
-        @words.train(words_to_s.split(/\s+/), pos_or_neg_num(row[:category]))
       end
       output_line_count if @line_count % 1000 == 0
     end
