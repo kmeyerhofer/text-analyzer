@@ -48,7 +48,7 @@ task :inserttokenfile do
       puts "Argument must be a string"
     elsif File.exist?(argument[0])
       if argument[1]
-        AddFileToLexicon.new(argument[0], db_name, argument[1])
+        AddFileToLexicon.new(argument[0], db_name, argument[1].to_i)
       else
         AddFileToLexicon.new(argument[0], db_name)
       end

@@ -36,7 +36,7 @@ class ProcessLexicon
   end
 
   def output_file_message(message, file)
-    p "#{message} #{file}"
+    p "#{message} #{file} at #{Time.now}"
   end
 
   def csv_file_hash_text(file, row)
@@ -55,11 +55,20 @@ class ProcessLexicon
     end
   end
 
-  def csv_parallel_worker(file, array)
-    array.each do |row|
+  def csv_parallel_worker(file, chunk_array)
+    chunk_array.each do |row|
       @line_count += 1
-      @words.train(csv_file_hash_text(file, row).split(/\s+/),
-        pos_or_neg_num(row[:category]))
+      begin
+        @words.train(csv_file_hash_text(file, row).split(/\s+/),
+          pos_or_neg_num(row[:category]))
+      rescue => e
+        p "Exception caught: #{e}"
+        words_to_s = csv_file_hash_text(file, row).to_s
+        @words.train(words_to_s.split(/\s+/), pos_or_neg_num(row[:category]))
+      ensure
+        words_to_s = csv_file_hash_text(file, row).to_s
+        @words.train(words_to_s.split(/\s+/), pos_or_neg_num(row[:category]))
+      end
       output_line_count if @line_count % 1000 == 0
     end
   end
