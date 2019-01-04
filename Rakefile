@@ -60,6 +60,11 @@ task :inserttokenfile do
   end
 end
 
+desc 'Adds minimum tokens to database.'
+task :addminimumtokens do
+  AddMinimumTokens.new(db_name)
+end
+
 desc 'Deletes current tokens and re-adds them to database.'
 task :reinsertminimumtokens do
   db = set_db

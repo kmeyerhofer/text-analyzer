@@ -155,6 +155,17 @@ class CreateLexicon < ProcessLexicon
   end
 end
 
+class AddMinimumTokens < ProcessLexicon
+  def initialize(db_name)
+    super(db_name)
+    insert_tokens
+  end
+
+  def insert_tokens
+    parallel_text_tokens(text_files)
+  end
+end
+
 class AddFileToLexicon < ProcessLexicon
   def initialize(file_name, db_name, threads = 4)
     super(db_name)
