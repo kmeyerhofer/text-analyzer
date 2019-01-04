@@ -49,6 +49,7 @@ class ProcessLexicon
 
   def csv_file_source(file)
     if file.match?(/yelp/)
+      # CSV contains many extra empty columns
       ['category', 'comment',  '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
     elsif file.match?(/amazon/)
       ['category', 'title', 'review']
@@ -74,6 +75,7 @@ class ProcessLexicon
     files.each do |file|
       output_file_message('Processing file:', file)
       chunks = SmarterCSV.process(file, { chunk_size: 1000, user_provided_headers: csv_file_source(file)})
+      output_file_message('File loaded in memory:', file)
       Parallel.each(chunks, in_threads: threads) do |chunk|
         csv_parallel_worker(file, chunk)
       end
