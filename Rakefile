@@ -18,7 +18,7 @@ def set_db
 end
 
 desc 'Initial insertion of data into local PostgreSQL database.'
-task :createlexicon do
+task :create_lexicon do
   db = set_db
   if db.connect && (db.token_count < 1 && db.category_count < 1)
     CreateLexicon.new(db_name)
@@ -39,7 +39,7 @@ task :stats do
 end
 
 desc 'Pass a single filename ("/path/to/file") to add to the lexicon database.'
-task :inserttokenfile do
+task :insert_tokenfile do
   argument = ARGV[1..ARGV.length - 1]
   if argument.length < 1
     puts "Please pass a filename argument."
@@ -61,15 +61,22 @@ task :inserttokenfile do
 end
 
 desc 'Adds minimum tokens to database.'
-task :addminimumtokens do
+task :add_minimum_tokens do
   AddMinimumTokens.new(db_name)
 end
 
 desc 'Deletes current tokens and re-adds them to database.'
-task :reinsertminimumtokens do
+task :reinsert_minimum_tokens do
   db = set_db
   db.delete_all_tokens
   CreateLexicon.new(db_name)
+end
+
+desc 'Creates and/or updates the token_stats database table'
+task :token_stats_table do
+  db = set_db
+  db.create_token_stats
+  db.insert_token_stats
 end
 
 desc 'Run tests.'
