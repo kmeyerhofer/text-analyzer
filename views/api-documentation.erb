@@ -26,6 +26,9 @@
     </li>
   </ul>
   <p>
+    <span class="code">analysis_focus=n</span>, <span class="code">n</span> being <span class="code">accuracy</span> or <span class="code">speed</span>. This optional parameter selects one of two databases to use and defaults to <span class="code">speed</span>.
+  </p>
+  <p>
     <span class="code">text_to_analyze=n</span>, <span class="code">n</span> being the text you want analyzed.
   </p>
   <p>
@@ -41,10 +44,13 @@
     Here are two CLI examples using <span class="code">curl</span>:
   </p>
   <p>
-    <span class="code">curl <%= url '/api' %> -X POST -d analysis_type=punctuation -d text_to_analyze=I%20hate!%20Anything%20not%20related.to%20biscuits</span>
+    <span class="code">curl <%= url '/api' %> -X POST -d analysis_separator=none -d analysis_focus=accuracy -d text_to_analyze=I%20love%20biscuits</span>
   </p>
   <p>
-    <span class="code">curl <%= url '/api' %> -X POST -d analysis_type=new_line -d text_to_analyze=I%20hate%0D%0AAnything%20not%20related%0D%0Ato%20biscuits</span>
+    <span class="code">curl <%= url '/api' %> -X POST -d analysis_separator=punctuation -d text_to_analyze=I%20hate!%20Anything%20not%20related.to%20biscuits</span>
+  </p>
+  <p>
+    <span class="code">curl <%= url '/api' %> -X POST -d analysis_separator=new_line -d text_to_analyze=I%20hate%0D%0AAnything%20not%20related%0D%0Ato%20biscuits</span> *
   </p>
   <p>
     *Note the percent-encoded newline character <span class="code">%0D%0A</span>.

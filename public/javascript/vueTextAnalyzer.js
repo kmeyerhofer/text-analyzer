@@ -3,6 +3,7 @@ var app = new Vue({
   data: {
     text_to_analyze: '',
     analysis_separator: 'none',
+    analysis_focus: 'speed',
     analyzing: 'Analyze',
     results: [],
     isDisabled: true,
@@ -45,6 +46,7 @@ var app = new Vue({
       let formData = new FormData();
       formData.append('text_to_analyze', self.text_to_analyze);
       formData.append('analysis_separator', self.analysis_separator);
+      formData.append('analysis_focus', self.analysis_focus);
       headers = { headers: { 'Content-Type': 'multipart/form-data' } };
       axios.post('/api', formData, headers)
       .then(function(response) {
