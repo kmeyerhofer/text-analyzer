@@ -9,7 +9,7 @@ class AnalyzeTest < Minitest::Test
   include Rack::Test::Methods
 
   def db_name
-    ENV["DATABASE_NAME"]
+    ENV['TEXT_ANALYZER_SPEED_DATABASE']
   end
 
   def db_connect

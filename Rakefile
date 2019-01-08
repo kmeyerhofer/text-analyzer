@@ -10,7 +10,8 @@ require_relative './lib/dbconnect.rb'
 task :default => [:test]
 
 def db_name
-  ENV['DATABASE_NAME']
+  puts "Enter the database name: "
+  answer = STDIN.gets.chomp
 end
 
 def set_db

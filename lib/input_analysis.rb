@@ -2,17 +2,17 @@ class InputAnalysis
   attr_reader :cleaned_text, :lexicon, :analysis_result, :random_text_source,
               :positive_percent, :negative_percent, :background_css_class
 
-  def initialize(cleaned_text, text_source = nil, random_phrase = nil)
+  def initialize(db_name, cleaned_text, text_source = nil, random_phrase = nil)
     @cleaned_text = cleaned_text
     @lexicon = Lexicon.new(db_name)
     @random_text_source = text_source
     @analysis_result = text_analysis
     @positive_percent, @negative_percent = format_percent
     @background_css_class = css_class
-    save_user_entry unless random_phrase
+    save_user_entry(db_name) unless random_phrase
   end
 
-  def save_user_entry
+  def save_user_entry(db_name)
     db = DBConnect.new(db_name)
     db.user_entry(
       cleaned_text, background_css_class, positive_percent, negative_percent
@@ -67,9 +67,5 @@ class InputAnalysis
 
   def format_percent
     analysis_result.values.map { |num| format("%.3f", (num * 100)) + '%' }
-  end
-
-  def db_name
-    ENV['DATABASE_NAME']
   end
 end
