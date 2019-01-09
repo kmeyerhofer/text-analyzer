@@ -8,3 +8,4 @@ shared/
 public/javascript/axios.min.js
 public/javascript/vue.js
 public/javascript/vue.min.js
+.bundle/
