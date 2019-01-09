@@ -35,7 +35,7 @@ class DBConnect
   end
 
   def distinct_token_count
-    sql = "SELECT count(DISTINCT phrase) FROM tokens;"
+    sql = "SELECT value FROM token_stats WHERE name = 'distinct_token_count';"
     result = ''
     connect { |connection| result = connection.exec(sql).values[0][0].to_i }
     result
@@ -49,14 +49,14 @@ class DBConnect
   end
 
   def token_count
-    sql = "SELECT count(phrase) FROM tokens;"
+    sql = "SELECT value FROM token_stats WHERE name = 'total_token_count';"
     result = ''
     connect { |connection| result = connection.exec(sql).values[0][0].to_i }
     result
   end
 
   def category_count
-    sql = "SELECT count(name) FROM categories;"
+    sql = "SELECT value FROM token_stats WHERE name = 'category_count';"
     result = ''
     connect { |connection| result = connection.exec(sql).values[0][0].to_i }
     result
@@ -75,8 +75,49 @@ class DBConnect
     end
   end
 
+  def create_token_stats
+    drop_table = "DROP TABLE token_stats;"
+    sql = <<-SQL
+    CREATE TABLE token_stats (
+      id serial PRIMARY KEY,
+      name varchar(30) NOT NULL,
+      value int NOT NULL,
+      category_id int,
+      FOREIGN KEY (category_id) REFERENCES categories(id)
+    );
+    SQL
+    connect do |connection|
+      begin
+        connection.exec(drop_table)
+      rescue PG::UndefinedTable => e
+      ensure
+        connect { |connection| connection.exec(sql) }
+      end
+    end
+  end
+
+  def insert_token_stats
+    general_stats = <<-SQL
+    INSERT INTO token_stats (name, value) VALUES
+    ('distinct_token_count', (SELECT count(DISTINCT phrase) FROM tokens)),
+    ('total_token_count', (SELECT count(phrase) FROM tokens)),
+    ('category_count', (SELECT count(name) FROM categories));
+    SQL
+    connect { |connection| connection.exec(general_stats) }
+    categories.each do |category|
+      category_id = "(SELECT id FROM categories WHERE name = '#{category}')"
+      sql = <<-SQL
+      INSERT INTO token_stats (name, value, category_id) VALUES
+      ('token_frequency_count', (SELECT sum(frequency) FROM tokens WHERE category_id = #{category_id}), #{category_id}),
+      ('token_count', (SELECT count(phrase) FROM tokens WHERE category_id = #{category_id}), #{category_id});
+      SQL
+      connect { |connection| connection.exec(sql) }
+    end
+    puts 'Token stats added.'
+  end
+
   def delete_all_tokens
     sql = "DELETE FROM tokens;"
-    connect { |connection| connection.connect.exec(sql) }
+    connect { |connection| connection.exec(sql) }
   end
 end

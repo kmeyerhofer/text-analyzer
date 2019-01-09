@@ -20,14 +20,23 @@
         Separate analysis by:
         <div class="radio-buttons">
           <input type="radio" name="analysis_separator" value="punctuation"
-                 id="punctuation" v-model="analysis_separator">
+            id="punctuation" v-model="analysis_separator">
           <label for="punctuation">Punctuation</label>
           <input type="radio" name="analysis_separator" value="new_line"
-                 id="new_line" v-model="analysis_separator">
+            id="new_line" v-model="analysis_separator">
           <label for="new_line">New line</label>
           <input type="radio" name="analysis_separator" value="none"
-                 id="text" v-model="analysis_separator" checked>
+            id="text" v-model="analysis_separator" checked>
           <label for="text">None</label>
+        </div>
+        Analysis focus:
+        <div class="radio-buttons">
+          <input type="radio" name="analysis_focus" value="accuracy"
+          id="accuracy" v-model="analysis_focus">
+          <label for="accuracy">Accuracy</label>
+          <input type="radio" name="analysis_focus" value="speed"
+            id="speed" v-model="analysis_focus" checked>
+          <label for="speed">Speed</label>
         </div>
       </div>
       <input :value="analyzing" @click.prevent="analyze" :disabled="isDisabled"

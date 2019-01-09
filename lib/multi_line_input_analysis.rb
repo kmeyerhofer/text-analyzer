@@ -2,17 +2,17 @@ class MultiLineInputAnalysis
   attr_accessor :separated_results, :list_item_strings,
                 :popup_list_item_strings
 
-  def initialize(cleaned_separated_text)
+  def initialize(db_name, cleaned_separated_text)
     @list_item_strings = []
     @popup_list_item_strings = []
     @separated_results = []
     @json_results = []
-    iterate_through_phrases(cleaned_separated_text)
+    iterate_through_phrases(db_name, cleaned_separated_text)
   end
 
-  def iterate_through_phrases(cleaned_separated_text)
+  def iterate_through_phrases(db_name, cleaned_separated_text)
     cleaned_separated_text.each do |phrase|
-      result = InputAnalysis.new(phrase)
+      result = InputAnalysis.new(db_name, phrase)
       @json_results.push(result)
       self.popup_list_item_strings << format_popup_list_items(result)
       self.list_item_strings << format_multi_list_item_string(result.results_hash)

@@ -1,5 +1,5 @@
 dbconnection\ methods\ to\ write.txt
-data/combined-lexicon.yml.bak
+data/
 notes
 sql-efficiency-notes.txt
 bin/
@@ -8,3 +8,4 @@ shared/
 public/javascript/axios.min.js
 public/javascript/vue.js
 public/javascript/vue.min.js
+.bundle/

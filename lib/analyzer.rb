@@ -52,6 +52,14 @@ helpers do
     result.push(params[:text_to_analyze].size)
     result
   end
+
+  def db_to_use
+    if params[:analysis_focus] == 'accuracy'
+      ENV['TEXT_ANALYZER_ACCURACY_DATABASE']
+    else
+      ENV['TEXT_ANALYZER_SPEED_DATABASE']
+    end
+  end
 end
 
 get '/' do
@@ -68,10 +76,10 @@ post '/api' do
   when 'text too long'
     json_error("Exceeds #{ANALYZE_CHAR_LIMIT} character limit.")
   when 'no separation'
-    [InputAnalysis.new(cleaned_text).json]
+    [InputAnalysis.new(db_to_use, cleaned_text).json]
   when 'separation'
     separated_text = separate_by(cleaned_text, analysis_separator)
-    MultiLineInputAnalysis.new(separated_text).json
+    MultiLineInputAnalysis.new(db_to_use, separated_text).json
   when 'error'
     json_error('Invalid separator value.')
   end
@@ -88,13 +96,13 @@ post '/result' do
     session[:flash_message] = "Please input less than #{ANALYZE_CHAR_LIMIT} characters."
     redirect to '/'
   when 'no separation'
-    input = InputAnalysis.new(cleaned_text)
+    input = InputAnalysis.new(db_to_use, cleaned_text)
     @view_data = input.view_elements
     session[:input].unshift(input.session_elements)
     erb :result
   when 'separation'
     separated_text = separate_by(cleaned_text, analysis_separator)
-    input = MultiLineInputAnalysis.new(separated_text)
+    input = MultiLineInputAnalysis.new(db_to_use, separated_text)
     @popup_results = input.popup_list_item_strings
     session[:input].unshift(input.list_item_strings.join(''))
     erb :'detailed-result'
@@ -106,7 +114,7 @@ end
 
 get '/random' do
   random_result = RandomSentence.new
-  input = InputAnalysis.new(random_result.selection, random_result.source, true)
+  input = InputAnalysis.new(db_to_use, random_result.selection, random_result.source, true)
   @view_data = input.view_elements
   erb :result
 end
