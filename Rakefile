@@ -10,8 +10,9 @@ require_relative './lib/dbconnect.rb'
 task :default => [:test]
 
 def db_name
-  puts "Enter the database name: "
-  answer = STDIN.gets.chomp
+  # puts "Enter the database name: "
+  # answer = STDIN.gets.chomp
+  ENV['TEXT_ANALYZER_ACCURACY_DATABASE']
 end
 
 def set_db
