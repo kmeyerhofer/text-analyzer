@@ -54,11 +54,7 @@ helpers do
   end
 
   def db_to_use
-    if params[:analysis_focus] == 'accuracy'
-      ENV['TEXT_ANALYZER_ACCURACY_DATABASE']
-    else
-      ENV['TEXT_ANALYZER_SPEED_DATABASE']
-    end
+    ENV['TEXT_ANALYZER_ACCURACY_DATABASE']
   end
 end
 
